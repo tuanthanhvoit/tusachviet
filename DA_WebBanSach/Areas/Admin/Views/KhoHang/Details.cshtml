@@ -1,0 +1,52 @@
+﻿@model DA_WebBanSach.Models.KhoHang
+
+@{
+    ViewBag.Title = "Thông Tin Kho Hàng";
+}
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Quản Lý</a><span class="divider">&raquo;</span></li>
+    <li><a href="@Url.Action("Index", "KhoHang")">Kho Hàng</a><span class="divider">&raquo;</span></li>
+    <li>Thông Tin Kho Hàng</li>
+</ul>
+<div class="row">
+    <div class="span12">
+        <div class="nonboxy-widget">
+            <div class="widget-head">
+                <h5>
+                    <i class="black-icons blocks_images"></i>Thông Tin Kho Hàng
+                </h5>
+                
+            </div>
+            <div class="widget-content">
+                <div class="widget-box">
+                    <form class="form-horizontal well" id="signupform" action="#">
+                    <fieldset>
+                        <div class="control-group">
+                            <label class="control-label"> <b>Ngày Nhập:</b></label>
+                            <div class="control-labelb">
+                                @Html.DisplayFor(model => model.NgayNhap)
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"> <b>Số Lượng:</b></label>
+                            <div class="control-labelb">
+                                @Html.DisplayFor(model => model.SoLuongNhap)
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"> <b>Tên Sách:</b></label>
+                            <div class="control-labelb">
+                                @Html.DisplayFor(model => model.Sach.TenSach)
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="form-actions">
+                        <a href="@Url.Action("Edit", "KhoHang", new { id = Model.KhoHangID })" class="btn btn-primary">Sửa Thông Tin</a> 
+                        <a href="@Url.Action("Index", "KhoHang")" class="btn btn-info">Trở Về Trang Trước</a> 
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

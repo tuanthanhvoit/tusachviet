@@ -1,0 +1,77 @@
+﻿@model DA_WebBanSach.Models.HoaDon
+@{
+    ViewBag.Title = "In Hóa Đơn";
+    Layout = null;
+}
+
+@helper Truncate(string input, int maxlenght){
+    if(input.Length < maxlenght){
+        @input    
+    }else{
+        @input.Substring(0,maxlenght)<text>.....</text>
+    }    
+}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>In Hóa Đơn</title>
+    @Scripts.Render("~/bundles/jquery")
+    <script>
+        $(function () {
+            window.print();
+        });
+    </script>
+</head>
+<body>
+    <div style="margin-left:auto; margin-right:auto; padding:0;">
+    <h3 style="font-weight:bold; text-align:center">Chi Tiết Hóa Đơn</h3>
+    <table border="1" align="center" style="margin-top:5px; width:450px">
+        <tr>
+            <td colspan="3">Ngày: @Model.NgayLapHD.ToShortDateString()</td>
+            <td colspan="2">Nhân Viên: @Model.NguoiDung.HoTen</td>
+        </tr>
+        <tr>
+            <th>
+                Mã Sách
+            </th>
+            <th>
+                Tên Sách
+            </th>
+            <th>
+                Đơn Giá
+            </th>
+            <th>
+                Số Lượng
+            </th>
+            <th>
+                Thành Tiền
+            </th>
+        </tr>
+        @foreach (var item in Model.ChiTietHoaDons)
+        {
+            <tr>
+                <td>
+                    @item.SachID
+                </td>
+                <td>
+                    @Truncate(item.Sach.TenSach,20)
+                </td>
+                <td>
+                    @item.DonGia.ToString("0,0 VNĐ")
+                </td>
+                <td>
+                    @item.SoLuong
+                </td>
+                <td>
+                    @item.ThanhTien.ToString("0,0 VNĐ")
+                </td>
+            </tr>
+        }
+        <tr>
+            <td align="right" colspan="4">Tổng Tiền</td>
+            <td>@Model.TongTien.ToString("0,0 VNĐ")</td>
+        </tr>
+    </table>
+    </div>
+</body>
+</html>

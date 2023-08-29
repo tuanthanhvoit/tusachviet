@@ -1,0 +1,17 @@
+﻿@using DA_WebBanSach.Models
+
+@{
+    GioHang cart = GioHang.Cart;
+}
+<div id="giohang">
+<a href="@Url.Action("Manage","GioHang")"><img style="float:left" id="cart-image" src="~/Images/shoppingcart.gif" width="75px"/></a>
+<div id="cart-count">Có @cart.Count Sách</div>
+<div id="cart-amount">Tổng Cộng: @String.Format("{0:0,0;-0.0;0}",cart.Amount) VNĐ</div>
+</div>
+<script>
+    function fnUpdateCartInfo(count, amount) {
+        $("#cart-count").html("Có " + count + " Sách");
+        $("#cart-amount").html("Tổng Cộng: " + amount + " VNĐ");
+        $(".amout").html(amount + " VNĐ");
+    }
+</script>

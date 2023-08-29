@@ -1,0 +1,103 @@
+﻿@model DA_WebBanSach.Models.HoaDon
+@{
+    ViewBag.Title = "Thông Tin Hóa Đơn";
+}
+
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Quản Lý</a><span class="divider">&raquo;</span></li>
+    <li><a href="@Url.Action("Index", "HoaDon")">Hóa Đơn</a><span class="divider">&raquo;</span></li>
+    <li>Thông Tin Hóa Đơn</li>
+</ul>
+<div class="row">
+    <div class="span13">
+        <div class="widget-block">
+            <div class="widget-head">
+                <h5>Thông Tin Hóa Đơn</h5>
+            </div>
+            <div class="widget-content">
+                <div class="widget-box">
+                    <div class="form-horizontal well white-box">
+                        <fieldset>
+                            <div class="control-group">
+                                <label class="control-label" for="input501">
+                                    <b>Tổng Tiền:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.TongTien)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="input501">
+                                    <b>Ngày Lập Hóa Đơn:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.NgayLapHD)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="input501">
+                                    <b>Tiền Khách Trả:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.TienKhachTra)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="input501">
+                                    <b>Tiền Thối:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.TienThoi)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="input501">
+                                    <b>Nhân Viên:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.NguoiDung.UserName)
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <a href="@Url.Action("Edit", "HoaDon", new { id = Model.HoaDonID })" class="btn btn-primary">Sửa Hóa Đơn</a>
+                                <a href="@Url.Action("InHoaDon", "HoaDon", new { id = Model.HoaDonID })" target="_blank" class="btn btn-success">
+                                    <i class="color-icons printer_co"></i>
+                                    In Hóa Đơn</a>
+                                <a href="@Url.Action("Index", "HoaDon")" class="btn btn-info">Trở Về Trang
+                                        Hóa Đơn</a>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span6 ">
+        <div class="widget-block">
+          <div class="widget-head">
+            <h5><i class="black-icons money"></i> Chi Tiết Hóa Đơn</h5>
+          </div>
+          <div class="widget-content">
+            <div class="widget-box">
+              <table class="table order-tbl">
+                <thead>
+                  <tr>
+                    <th> Tên Sách </th>
+                    <th> Giá Bán </th>
+                    <th> Số Lượng </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach (var item in Model.ChiTietHoaDons)
+                  {
+                      <tr>
+                        <td>
+                            <a href="@Url.Action("Details", "Sach", new { id=item.SachID})" />
+                            @item.Sach.TenSach
+                        </td>
+                        <td>@item.DonGia</td>
+                        <td>@item.SoLuong</td>
+                      </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>

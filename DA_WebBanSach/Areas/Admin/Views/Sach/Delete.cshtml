@@ -1,0 +1,163 @@
+﻿@model DA_WebBanSach.Models.Sach
+
+@{
+    ViewBag.Title = "Xóa Sách";
+}
+
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Quản Lý</a><span class="divider">&raquo;</span></li>
+    <li><a href="@Url.Action("Index", "Sach")">Sách</a><span class="divider">&raquo;</span></li>
+    <li>Xóa Sách</li>
+</ul>
+<div class="row">
+    <div class="span7">
+        <div class="widget-block">
+            <div class="widget-head">
+                <h5>Thông Tin Sách</h5>
+            </div>
+            <div class="widget-content">
+                <div class="widget-box">
+                    <div class="form-horizontal well white-box">
+                        <fieldset>
+                            <div class="control-group">
+                                <label class="control-label" for="input501"><b>Tên Sách:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.TenSach)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="input501"><b>Đơn Giá:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.DonGia) VNĐ
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="input501"><b>Loại Bìa:</b></label>
+                                <div class="control-labelb">
+                                    @if (Model.LoaiBia == false)
+                                    {
+                                        var loaibia = "Bìa cứng";
+                                        @Html.DisplayFor(model => loaibia)
+                                    }
+                                    else
+                                    {
+                                        var loaibia = "Bìa mềm";
+                                        @Html.DisplayFor(model => loaibia)
+                                    }
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="input501"><b>Ảnh Bìa:</b></label>
+                                <div class="control-labelb">
+                                    <a class="thumbnail group1" href="@Url.Content("~/Images/Sach/")@Html.DisplayFor(model => model.AnhBia)" title="@Html.DisplayFor(model => model.TenSach)">
+                                        <img alt="@Html.DisplayFor(model => model.TenSach)" src="@Url.Content("~/Images/Sach/")@Html.DisplayFor(model => model.AnhBia)" />
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="input501"><b>Mã Vạch:</b></label>
+                                <div class="control-labelb">
+                                     @Html.DisplayFor(model=>model.Mavach)
+                                </div>
+                            </div>
+                            @using (Html.BeginForm())
+                            {
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary">Xóa Sách</button>
+                                    <a href="@Url.Action("Index", "Sach")" class="btn btn-info">Trở Về Trang Sách</a>
+                                </div>
+                            }
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span5">
+        <div class="widget-block">
+            <div class="widget-head">
+                <h5>Nội Dung Tóm Tắt</h5>
+            </div>
+            <div class="widget-content">
+                <div class="widget-box">
+                    <div class=" form-horizontal well white-box ucase">
+                        <fieldset>
+                            <div class="control-group">
+                                <p class="help-blockb">
+                                    @Html.DisplayTextFor(model => model.TomTat)
+                                </p>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span5">
+        <div class="widget-block">
+            <div class="widget-head">
+                <h5>Thông Tin Số Lượng</h5>
+            </div>
+            <div class="widget-content">
+                <div class="widget-box">
+                    <div class=" form-horizontal well white-box ucase">
+                        <fieldset>
+                            <div class="control-group">
+                                <label class="control-label"><b>Số Lượng:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.SoLuongTon) Cuốn
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span5">
+        <div class="widget-block">
+            <div class="widget-head">
+                <h5>Thông Tin Xuất Bản</h5>
+            </div>
+            <div class="widget-content">
+                <div class="widget-box">
+                    <div class=" form-horizontal well white-box ucase">
+                        <fieldset>
+                            <div class="control-group">
+                                <label class="control-label"><b>Ngày Xuất Bản:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.NgayXuatBan)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label"><b>Nhà Xuất Bản:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.NhaXuatBan.TenNXB)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label"><b>Loại Sách:</b></label>
+                                <div class="control-labelb">
+                                    @foreach (var item in Model.ChiTietLoaiSaches)
+                                    {
+                                        @item.LoaiSach.TenLS <br />
+                                    }
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label"><b>Tác Giả:</b></label>
+                                <div class="control-labelb">
+                                    @foreach (var item in Model.ChiTietTacGias)
+                                    {
+                                        @item.TacGia.TenTG <br />
+                                    }
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

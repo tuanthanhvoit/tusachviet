@@ -1,0 +1,144 @@
+﻿@model IEnumerable<DA_WebBanSach.Models.DonHang>
+@{
+    ViewBag.Title = "Đơn Hàng";
+}
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Quản Lý</a><span class="divider">&raquo;</span></li>
+    <li>Đơn Hàng</li>
+</ul>
+@if (ViewBag.Error!=null)
+{
+    <div>
+        <ul>
+            <li><h4>@ViewBag.Error</h4></li>
+        </ul>
+    </div>
+}
+
+@using (Html.BeginForm())
+{
+<div class="row">
+    <div class="span12">
+        <div class="widget-block">
+            <div class="widget-head">
+                <h5>
+                    Danh Sách Đơn Hàng</h5>
+            </div>
+            <div class="widget-content">
+                <div class="widget-box">
+                    <table class="data-tbl-tools table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>
+                                    ID
+                                </th>
+                                <th>
+                                    Tổng Tiền
+                                </th>
+                                <th>
+                                    Ngày Đặt Hàng
+                                </th>
+                                <th>
+                                    Ngày Giao Hàng
+                                </th>
+                                <th>
+                                    Hình Thức Thanh Toán
+                                </th>
+                                <th>
+                                    Địa Điểm Nhận Hàng
+                                </th>
+                                <th>
+                                    Tên Khách Hàng
+                                </th>
+                                <th>
+                                    Nhân Viên
+                                </th>
+                                <th>
+                                    Tình Trạng Đơn Hàng
+                                </th>
+                                <th>
+                                    Chức năng
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td><input type="checkbox" name="chk@(item.DonHangID)" /></td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DonHangID)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TongTien)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NgayDatHang)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NgayGiaoHang)
+                                    </td>
+                                    <td>
+                                        @if (item.HinhThucThanhToan == 0)
+                                        {
+                                            var tinhtrang = "Thu Tiền Tại Nhà";
+                                            @Html.DisplayFor(modelItem => tinhtrang)
+                                        }
+                                        else
+                                        {
+                                            var tinhtrang = "Ngân Lượng";
+                                            @Html.DisplayFor(modelItem => tinhtrang)
+                                        }
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DiaDiemNhanHang), @Html.DisplayFor(modelItem => item.Quan), @Html.DisplayFor(modelItem => item.ThanhPho)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NguoiDung.HoTen)
+                                    </td>
+                                    <td>
+                                        @if (item.TenNhanVien.IsEmpty())
+                                        {
+                                            @:Chưa Kiểm Tra
+                                        }else{
+                                            @item.TenNhanVien
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.TinhTrangDonHang == -1)
+                                        {
+                                            var tinhtrang = "Hủy";
+                                            @Html.DisplayFor(modelItem => tinhtrang)
+                                        }
+                                        else if (item.TinhTrangDonHang == 0)
+                                        {
+                                            var tinhtrang = "Chưa Thanh Toán";
+                                            @Html.DisplayFor(modelItem => tinhtrang)
+                                        }
+                                        else if (item.TinhTrangDonHang == 1)
+                                        {
+                                            var tinhtrang = "Chờ Giao Hàng";
+                                            @Html.DisplayFor(modelItem => tinhtrang)
+                                        }
+                                        else
+                                        {
+                                            var tinhtrang = "Đã Giao Hàng";
+                                            @Html.DisplayFor(modelItem => tinhtrang)
+                                        }
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Details", "DonHang", new { id = item.DonHangID })" class="color-icons find_co" title="Xem Chi Tiết">
+                                        </a><a href="@Url.Action("Edit", "DonHang", new { id = item.DonHangID })" class="color-icons hammer_screwdriver_co" title="Sửa">
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}

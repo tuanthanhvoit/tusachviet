@@ -1,0 +1,19 @@
+﻿@model IEnumerable<DA_WebBanSach.Models.Sach>
+
+<div class="hotbook">
+    <ul class="content">
+    @foreach (var item in Model)
+    {
+        <li>
+            <a href="@Url.Action("Index", "Sach", new { id=item.SachID})">
+                <img src="~/Images/Sach/@item.AnhBia" />
+                <div class="hotbook_inner">
+                    <h2 class="hotbook_inner_title">@item.TenSach</h2><br />
+                    <span>@foreach(var tg in item.ChiTietTacGias){@tg.TacGia.TenTG} | @item.NgayXuatBan.Year</span>
+                </div>
+            </a>
+        </li>
+    }   
+    </ul>
+    <div class="page_navigation"></div>
+</div>

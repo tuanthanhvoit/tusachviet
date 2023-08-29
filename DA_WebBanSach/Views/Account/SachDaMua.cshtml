@@ -1,0 +1,42 @@
+﻿@model IEnumerable<DA_WebBanSach.Models.Sach>
+@{
+    ViewBag.Title = "Sách Đã Mua";
+}
+
+<div class="box_book">
+    <div class="box_book_title">
+        <a href="@Url.Action("SachDaMua", "Account")">Sách Đã Mua</a>
+    </div>
+    <div class="box_book_area" style="padding: 15px 0px 15px 15px; width: 665px">
+        <div class="content" style="float: left">
+            @foreach (var item in Model)
+            {
+                <div class="book_outline">
+                    <a>
+                        <a href="@Url.Action("Index", "Sach", new { id = item.SachID })">
+                            <img src="~/Images/Sach/01.jpg" />
+                        </a>
+                        <div class="sticky">
+                            <span class="giacungloai">Giá: @item.DonGia</span>
+                        </div>
+                        <div class="book_title">
+                            <a href="@Url.Action("Index", "Sach", new { id = item.SachID })">@item.TenSach</a>
+                        </div>
+                        <div class="book_outline_desc">
+                            <div class="book_outline_desc_inner">
+                                <div class="book_outline_desc_inner_title">@item.TenSach</div>
+                                <div class="book_outline_desc_inner_author">
+                                    @foreach (var ct in item.ChiTietTacGias)
+                                    {@ct.TacGia.TenTG} | @item.NgayXuatBan.Year
+                                </div>
+                                <div>@item.TomTat</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+    <!--End class box_book_area-->
+</div>
+<!--End class box_book||Sách truyện cùng thể loại-->

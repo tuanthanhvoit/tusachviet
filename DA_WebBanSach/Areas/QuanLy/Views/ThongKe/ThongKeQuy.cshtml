@@ -1,0 +1,225 @@
+﻿@{
+    ViewBag.Title = "Thống Kê Quý";
+}
+
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Quản Lý</a><span class="divider">&raquo;</span></li>
+    <li><a href="@Url.Action("Index", "ThongKe")">ThongKe</a><span class="divider">&raquo;</span></li>
+    <li>Thống Kê Quý</li>
+</ul>
+@if (ViewBag.HDnam != null)
+{ 
+    <div class="row">
+        <div class="span12">
+            <div class="graph-wrap">
+                <div class="chart-block">
+                    <div id="chart2">
+                    </div>
+                    <input class="button-reset btn btn-inverse" type="button" value="Reset" />
+                </div>
+            </div>
+        </div>
+    </div>
+    @section Scripts{
+        @Scripts.Render("~/bundles/chartJS")
+        <script>
+            $(function () {
+                $('.button-reset').click(function () { plot1.resetZoom() });
+                var s1 = [@foreach (var item in ViewBag.HDnam)
+                          {
+		                @:['Quý @item.name', @item.TongTien],
+	                  }];
+                var s2 = [@foreach (var item in ViewBag.HDnam)
+                          {
+		                @:['Quý @item.name', @item.TongTien],
+    	                }];
+                plot1 = $.jqplot("chart2", [s2, s1], {
+                    title: 'Thống Kê Năm @ViewBag.Nam Theo Từng Quý',
+                    // Turns on animatino for all series in this plot.
+                    animate: true,
+                    // Will animate plot on calls to plot1.replot({resetAxes:true})
+                    animateReplot: true,
+                    cursor: {
+                        show: true,
+                        zoom: true,
+                        looseZoom: true,
+                        showTooltip: false
+                    },
+                    seriesDefaults: {
+                        shadow: false  // show shadow or not.
+                    },
+                    series: [
+                        {
+                            pointLabels: {
+                                show: true
+                            },
+                            renderer: $.jqplot.BarRenderer,
+                            showHighlight: false,
+                            yaxis: 'yaxis',
+                            rendererOptions: {
+                                // Speed up the animation a little bit.
+                                // This is a number of milliseconds. 
+                                // Default for bar series is 3000. 
+                                animation: {
+                                    speed: 2500
+                                },
+                                barWidth: 15,
+                                barPadding: -15,
+                                barMargin: 0,
+                                highlightMouseOver: false
+                            }
+                        }
+                    ],
+                    axesDefaults: {
+                        pad: 1.2
+                    },
+                    axes: {
+                        xaxis: {
+                            renderer: $.jqplot.CategoryAxisRenderer,
+                        },
+                        yaxis: {
+                            autoscale: true,
+                            tickOptions: {
+                                formatString: "%'d VNĐ"
+                            }
+                        },
+                        y2axis: {
+                            autoscale: true,
+                            tickOptions: {
+                                formatString: "%'d VNĐ"
+                            }
+                        }
+                    },
+                    grid: {
+                        background: '#fff',
+                        drawBorder: false,
+                        shadow: false,
+                        gridLineColor: '#ccc',
+                        gridLineWidth: 1
+                    },
+                    highlighter: {
+                        show: true,
+                        showLabel: true,
+                        tooltipAxes: 'y',
+                        sizeAdjust: 7.5, tooltipLocation: 'ne'
+                    }
+                });
+            });
+        </script>
+    }
+}
+
+@if (ViewBag.HD != null)
+{
+    <div class="row">
+        <div class="span6">
+            <div class="graph-wrap">
+                <div class="chart-block">
+                    <div id="chart2">
+                    </div>
+                    <input class="button-reset btn btn-inverse" type="button" value="Reset" />
+                </div>
+            </div>
+        </div>
+        <div class="span6">
+            <div class="graph-wrap">
+                <div class="chart-block">
+
+                        @foreach (var item in ViewBag.HD)
+                        {
+                            <h3>Tháng @item.name: @item.TongTien</h3>
+                        }
+                         <h3>Tổng Cộng: @ViewBag.Tong</h3>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    @section Scripts{
+        @Scripts.Render("~/bundles/chartJS")
+        <script>
+            $(function () {
+                $('.button-reset').click(function () { plot1.resetZoom() });
+                var s1 = [@foreach (var item in ViewBag.HD)
+                          {
+		                @:['Tháng @item.name', @item.TongTien],
+	                  }];
+                var s2 = [@foreach (var item in ViewBag.HD)
+                          {
+		                @:['Tháng @item.name', @item.TongTien],
+    	                }];
+                plot1 = $.jqplot("chart2", [s2, s1], {
+                    title: 'Thống Kê Tổng Tiền Quý @ViewBag.QuyThang Năm @ViewBag.QuyNam',
+                    // Turns on animatino for all series in this plot.
+                    animate: true,
+                    // Will animate plot on calls to plot1.replot({resetAxes:true})
+                    animateReplot: true,
+                    cursor: {
+                        show: true,
+                        zoom: true,
+                        looseZoom: true,
+                        showTooltip: false
+                    },
+                    seriesDefaults: {
+                        shadow: false  // show shadow or not.
+                    },
+                    series: [
+                        {
+                            pointLabels: {
+                                show: true
+                            },
+                            renderer: $.jqplot.BarRenderer,
+                            showHighlight: false,
+                            yaxis: 'yaxis',
+                            rendererOptions: {
+                                // Speed up the animation a little bit.
+                                // This is a number of milliseconds. 
+                                // Default for bar series is 3000. 
+                                animation: {
+                                    speed: 2500
+                                },
+                                barWidth: 15,
+                                barPadding: -15,
+                                barMargin: 0,
+                                highlightMouseOver: false
+                            }
+                        }
+                    ],
+                    axesDefaults: {
+                        pad: 1.2
+                    },
+                    axes: {
+                        xaxis: {
+                            renderer: $.jqplot.CategoryAxisRenderer,
+                        },
+                        yaxis: {
+                            autoscale: true,
+                            tickOptions: {
+                                formatString: "%'d VNĐ"
+                            }
+                        },
+                        y2axis: {
+                            autoscale: true,
+                            tickOptions: {
+                                formatString: "%'d VNĐ"
+                            }
+                        }
+                    },
+                    grid: {
+                        background: '#fff',
+                        drawBorder: false,
+                        shadow: false,
+                        gridLineColor: '#ccc',
+                        gridLineWidth: 1
+                    },
+                    highlighter: {
+                        show: true,
+                        showLabel: true,
+                        tooltipAxes: 'y',
+                        sizeAdjust: 7.5, tooltipLocation: 'ne'
+                    }
+                });
+            });
+        </script>
+    }  
+}

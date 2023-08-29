@@ -1,0 +1,64 @@
+﻿@model DA_WebBanSach.Models.LoaiSach
+
+@{
+    ViewBag.Title = "Xóa Loại Sách";
+}
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Quản Lý</a><span class="divider">&raquo;</span></li>
+    <li><a href="@Url.Action("Index", "LoaiSach")">Loại Sách</a><span class="divider">&raquo;</span></li>
+    <li>Xóa Loại Sách</li>
+</ul>
+    <div class="row">
+        <div class="span12">
+            <div class="nonboxy-widget">
+                <div class="widget-head">
+                    <h5>
+                        <i class="black-icons blocks_images"></i>Xóa Loại Sách:
+                    </h5>
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div class="form-horizontal well" id="signupform">
+                            <fieldset>
+                                <div class="control-group">
+                                    <label class="control-label">
+                                        <b>Mã Loại Sách:</b></label>
+                                    <div class="control-labelb">
+                                        @Html.DisplayFor(model => model.LoaiSachID)
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">
+                                        <b>Tên Loại Sách:</b></label>
+                                    <div class="control-labelb">
+                                        @Html.DisplayFor(model => model.TenLS)
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">
+                                        <b>Chủng Loại Sách:</b></label>
+                                    <div class="control-labelb">
+                                        @Html.DisplayFor(model => model.ChungLoaiSach.TenChungLoai)
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">
+                                        <b>Ghi Chú:</b></label>
+                                    <div class="control-labelb">
+                                        @Html.DisplayFor(model => model.GhiChu)
+                                    </div>
+                                </div>
+                            </fieldset>
+                            @using (Html.BeginForm())
+                            {
+                                <div class="form-actions">
+                                    <input type="submit" value="Xóa" class="btn btn-success" />
+                                    <a href="@Url.Action("Index", "LoaiSach")" class="btn btn-info">Trở Về Trang Trước</a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

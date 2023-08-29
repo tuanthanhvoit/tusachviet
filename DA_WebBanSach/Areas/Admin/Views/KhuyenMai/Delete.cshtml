@@ -1,0 +1,62 @@
+﻿@model DA_WebBanSach.Models.KhuyenMai
+@{
+    ViewBag.Title = "Delete";
+}
+
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Quản Lý</a><span class="divider">&raquo;</span></li>
+    <li><a href="@Url.Action("Index", "KhuyenMai")">Khuyến Mãi</a><span class="divider">&raquo;</span></li>
+    <li>Thông Tin Khuyến Mãi</li>
+</ul>
+<div class="row">
+    <div class="span12">
+        <div class="nonboxy-widget">
+            <div class="widget-head">
+                <h5>
+                    <i class="black-icons blocks_images"></i>Thông Tin Khuyến Mãi
+                </h5>
+
+            </div>
+            <div class="widget-content">
+                <div class="widget-box">
+                    <div class="form-horizontal well" id="signupform">
+                        <fieldset>
+                            <div class="control-group">
+                                <label class="control-label"><b>Tên Đợt Khuyến Mãi:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.TenDotKM)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label"><b>Giá Giảm:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.GiaGiam)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label"><b>Ngày Bắt Đầu:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.NgayBatDau)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label"><b>Ngày Kết Thúc:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.NgayKetThuc)
+                                </div>
+                            </div>
+                        </fieldset>
+                        @using (Html.BeginForm())
+                        {
+                            <div class="form-actions">
+                                <input type="submit" value="Xóa" class="btn btn-primary">
+                                <a href="@Url.Action("Index", "KhuyenMai")" class="btn btn-info">Trở Về Trang Trước</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

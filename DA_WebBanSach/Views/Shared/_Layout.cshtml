@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7; IE=EmulateIE9" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+<title>Tủ Sách Việt | Website demo 2013</title>
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+
+@Scripts.Render("~/Scripts/jquery-1.4.2.min.js")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jquerytemplate")
+@Scripts.Render("~/bundles/jqueryui")
+
+<script type="text/javascript">
+        $(function() {
+            $("#main_menu_header").lavaLamp({
+                fx: "backout",
+                speed: 500,
+                click: function(event, menuItem) {
+                    return true;
+                }
+            });
+        });
+		
+		$(document).ready(function(){	
+			$("#slider").easySlider({
+				auto: true, 
+				continuous: true,
+				numeric: true
+			});
+		});	
+		
+		$(document).ready(function(){
+				$('#load_pages_in').pajinate({
+					items_per_page : 4,
+					show_first_last:false,
+					abort_on_small_lists:false,
+					nav_label_next:">",
+					nav_label_prev:"<"
+				});
+				
+			});
+</script><!--call all js-->
+@RenderSection("scripts", required: false)
+</head>
+<body>
+	<div class="main_bluetemps">
+    	<div class="header">
+        	<div class="w_header">
+            	<div class="main_menu">
+                	@Html.Action("MenuTop","UC")
+                </div><!--End class main_menu-->
+                <div class="bls">
+                	<div class="menuLogo">
+                        <img src="~/Images/logo.png" />
+                    </div>
+                	@Html.Action("TimKiem", "UC")
+                </div>
+                <div class="cate_menu">
+                	@Html.Action("MenuSach","UC")
+                </div><!--End class cate_menu-->
+            </div>
+        </div><!--End class header-->
+        <div class="container">
+        	<div class="w_container">
+            	<div class="adven">
+                	<div class="sliceder">
+                    	<div id="slider">
+                            @Html.Action("SlideTop","UC")
+                        </div>
+                        <div class="sliceder_shadow"></div>
+                    </div>
+                    <div class="loressup">
+                    	@Html.Action("Login","UC")
+                    </div>
+                </div><!--End class adven-->
+                <div class="page_load">
+                	<div class="page">
+                    	<div class="page_left">
+                            @RenderSection("featured", required: false)
+                            @RenderBody()
+                        </div><!--End class page_left-->
+                        <div class="page_right">
+                            <div class="r_box_outline">
+                            	<h1>Giỏ Hàng</h1>
+                                <div class="region_menu_inner">
+                                	@Html.Partial("_GioHang")
+                                </div>
+                            </div>
+                            <div class="r_box_outline" id="load_pages_in">
+                            	<h1>Sách xem nhiều</h1>
+                                @Html.Action("SachXemNhieu","UC")
+                                <!--End class hotbook-->
+                            </div><!--End class r_box_outline-->
+                        </div><!--End class page_right-->
+                    </div><!--End class page-->
+                    <div class="copyright">
+                        <p style="color:white; margin: 30px; text-align:center">Website đồ án: Web bán sách trực tuyến xây dựng trên ASP.NET MVC4<br />
+                        Sinh Viên: Võ Tuấn Thành - 10345351<br />
+                        Số Điện Thoại: 01203124144<br />
+                        </p>
+                    </div>
+                </div><!--End class page_load-->
+            </div>
+        </div><!--End class container-->
+    </div>
+</body>
+</html>

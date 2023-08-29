@@ -1,0 +1,18 @@
+﻿@model IEnumerable<DA_WebBanSach.Models.ChungLoaiSach>
+
+<ul>
+    @foreach (var cl in Model)
+    {
+        <li><a>@cl.TenChungLoai</a>
+            <ul class="cate_menu_sub">
+                @foreach (var item in cl.LoaiSaches)
+                {
+                <li><a href="@Url.Action("Index", "LoaiSach", new { id=item.LoaiSachID})">@item.TenLS</a></li>
+                }
+            </ul>
+        </li>
+    }
+    <li><a href="@Url.Action("Index", "TinTuc")">Tin Tức & Thông Tin Khuyến Mãi</a></li>
+</ul>
+
+

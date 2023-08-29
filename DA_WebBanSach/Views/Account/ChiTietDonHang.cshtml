@@ -1,0 +1,118 @@
+﻿@model DA_WebBanSach.Models.DonHang
+
+@{
+    ViewBag.Title = "ChiTietDonHang";
+}
+
+<div class="box_book">
+    <div class="box_book_title">
+        <a>Thông Tin Đơn Hàng</a>
+    </div>
+    @using (Html.BeginForm("ChiTietDonHang", "Account", FormMethod.Post, new { id = "contactform" }))
+    {
+         if (Model.HinhThucThanhToan==0 && Model.HinhThucThanhToan==0)
+         {
+              <input class="buttom" name="submit" id="submit" tabindex="5" value="Thu Tiền Tại Nhà" type="button">
+         }else{
+              @Html.Hidden("MaDonHang",Model.DonHangID)
+              <input class="buttom" name="submit" id="submit" tabindex="5" value="Thanh Toán Ngân Lượng" type="submit">
+         }
+    }
+    <div id="psdgraphics-com-table" style="margin-top:10px">
+	    <div id="psdg-header">
+		    <span class="psdg-bold"></span><br />
+	    </div>
+	    <div id="psdg-top">
+		    <div class="psdg-top-cell" style="width:29px; text-align:left; padding-left: 15px;">ID</div>
+		    <div class="psdg-top-cell-title">Địa Chỉ</div>
+		    <div class="psdg-top-cell">Ngày Đặt</div>
+		    <div class="psdg-top-cell">Ngày Giao</div>
+		    <div class="psdg-top-cell">Tổng Tiền</div>
+		    <div class="psdg-top-cell-end" style="border:none;"></div>
+	    </div>
+	    <div id="psdg-middle">
+            <div>
+		        <div class="psdg-left">@Model.DonHangID</div>
+		        <div class="psdg-right-title">@Model.DiaDiemNhanHang, @Model.Quan, @Model.ThanhPho</div>
+		        <div class="psdg-right">@Model.NgayDatHang.ToShortDateString()
+		        </div>
+		        <div class="psdg-right">@Model.NgayGiaoHang.ToShortDateString()</div>
+		        <div class="psdg-right">@Model.TongTien</div>
+		        <div class="psdg-right-end">
+                    @switch (Model.TinhTrangDonHang)
+	                {
+                        case 0:
+                            <img src="~/Images/icons/cash_single_remove.png" title="Chưa Thanh Toán" />
+                            break;
+                        case 1:
+                            <img src="~/Images/icons/vanchuyen.png" title="Đang Giao Hàng" />
+                            break;
+                        case 2:
+                            <img src="~/Images/icons/hoanthanh.png" title="Đã Giao Hàng Và Thu Tiền" />
+                            break;
+                        default:
+                            <img src="~/Images/icons/huy.png" title="Đơn Hàng Đã Hủy" />
+                            break;
+	                }
+		        </div>
+            </div>
+		    <div id="psdg-bottom">
+			    <div class="psdg-bottom-cell" style="width:29px; text-align:left; padding-left: 15px;"></div>
+			    <div class="psdg-bottom-cell-title"></div>
+			    <div class="psdg-bottom-cell"></div>
+			    <div class="psdg-bottom-cell"></div>
+			    <div class="psdg-bottom-cell amout"></div>
+			    <div class="psdg-bottom-cell-end" style="border:none;"></div>
+		    </div>
+	    </div>
+	    <div id="psdg-footer">
+		    @ViewBag.Error
+	    </div>
+    </div>
+</div>
+
+<div class="box_book">
+    <div class="box_book_title">
+        <a>Chi Tiết Đơn Hàng</a>
+    </div>
+
+    <div id="psdgraphics-com-table" style="margin-top:70px">
+	    <div id="psdg-header">
+		    <span class="psdg-bold"></span><br />
+	    </div>
+	    <div id="psdg-top">
+		    <div class="psdg-top-cell" style="width:29px; text-align:left; padding-left: 15px;">ID</div>
+		    <div class="psdg-top-cell-title">Tên Sách</div>
+		    <div class="psdg-top-cell">Đơn Giá</div>
+		    <div class="psdg-top-cell">Số Lượng</div>
+		    <div class="psdg-top-cell">Tổng Tiền</div>
+		    <div class="psdg-top-cell-end" style="border:none;"></div>
+	    </div>
+	    <div id="psdg-middle">
+            @foreach (var p in Model.ChiTietDonHangs)
+            {
+            <div>
+		        <div class="psdg-left">@p.SachID</div>
+		        <div class="psdg-right-title">@p.Sach.TenSach</div>
+		        <div class="psdg-right">@p.DonGia.ToString("0,0 VNĐ")</div>
+		        <div class="psdg-right">@p.SoLuong</div>
+		        <div class="psdg-right">@p.ThanhTien.ToString("0,0 VNĐ")</div>
+		        <div class="psdg-right-end">
+                   
+		        </div>
+            </div>
+            }
+		    <div id="psdg-bottom">
+			    <div class="psdg-bottom-cell" style="width:29px; text-align:left; padding-left: 15px;"></div>
+			    <div class="psdg-bottom-cell-title"></div>
+			    <div class="psdg-bottom-cell"></div>
+			    <div class="psdg-bottom-cell"></div>
+			    <div class="psdg-bottom-cell amout">@String.Format("{0:0,0;-0.0;0} VNĐ",Model.TongTien) </div>
+			    <div class="psdg-bottom-cell-end" style="border:none;"></div>
+		    </div>
+	    </div>
+	    <div id="psdg-footer">
+		    @ViewBag.Error
+	    </div>
+    </div>
+</div>

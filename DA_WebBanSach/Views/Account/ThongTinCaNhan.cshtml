@@ -1,0 +1,58 @@
+﻿@model DA_WebBanSach.Models.NguoiDung
+@{
+    ViewBag.Title = "Thông Tin Cá Nhân";
+}
+
+<div class="box_book">
+    <div class="box_book_title">
+        <a>Thông Tin Cá Nhân</a>
+    </div>
+    <div class="box_book_area" style="padding: 15px 0px 15px 15px; width: 665px">
+        <div class="content" style="float: left">
+                <table>
+                    <tr>
+                        <td style="text-align:left; font-weight:bold">Họ Và Tên:</td>
+                        <td style="padding-left:20px">@Model.HoTen</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left; font-weight:bold">Email:</td>
+                        <td style="padding-left:20px">@Model.Email</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left; font-weight:bold">Giới Tính:</td>
+                        <td style="padding-left:20px">
+                            @if (Model.GioiTinh==false)
+                            {
+                                @:Nữ
+                            }else{
+                                @:Nam
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left; font-weight:bold">Ngày Sinh:</td>
+                        <td style="padding-left:20px">@Model.NgaySinh.ToShortDateString()</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left; font-weight:bold">Điện Thoại:</td>
+                        <td style="padding-left:20px">@Model.DienThoai</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left; font-weight:bold">Địa Chỉ:</td>
+                        <td style="padding-left:20px">@Model.DiaChi, @Model.Quan, @Model.ThanhPho</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left; font-weight:bold">Tích Lũy:</td>
+                        <td style="padding-left:20px">
+                            @string.Format("{0:0,0;-0,0;0}",Model.KhachHangs.Sum(t=>t.TongTien))
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><a href="@Url.Action("SuaThongTinCaNhan", "Account", new { id=@Model.UserId})"><input type="button" style="width:100px; height:30px; border-radius:5px; background-color:ActiveCaption" value="Sửa Thông Tin"/></a></td>
+                    </tr>
+                </table>
+        </div>
+    </div>
+    <!--End class box_book_area-->
+</div>
+<!--End class box_book||Sách truyện cùng thể loại-->

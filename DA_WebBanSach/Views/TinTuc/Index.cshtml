@@ -1,0 +1,35 @@
+﻿@model IEnumerable<DA_WebBanSach.Models.TinTuc>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="box_book">
+    <div class="box_book_title">
+        <a>Thông Tin Khuyến Mãi</a>
+    </div>
+
+    @foreach (var item in Model)
+    {
+        <div class="box_book_area" style="padding: 15px 0px 15px 15px; width: 665px">
+            <div class="content" style="float: left">
+                <h3><a href="@Url.Action("ChiTiet", "TinTuc", new { id=item.TinTucID})" style="color:black">@item.TieuDe</a></h3>
+                <a href="@Url.Action("ChiTiet", "TinTuc", new { id=item.TinTucID})"><img src="~/Images/TinTuc/@item.UrlHinh" width="652px" /></a><br />
+                <div style="width:652px; margin-top:10px; text-align:justify">
+                @Html.Raw(item.TomTat)
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div id="phantrang">
+    @using (Html.BeginForm())
+    {
+        var pi = DA_WebBanSach.Models.PhanTrang.Get("Sach",10);
+        <input type="submit" value="<<" name="pageNo:0" />
+        <input type="submit" value="<" name="pageNo:@(pi.PageNo-1)" />
+        <input value="@(pi.PageNo + 1)" name="pageHT" /> @:/@(pi.LastPageNo+1) trang
+        <input type="submit" value="Đến Trang" name="dentrang" />
+        <input type="submit" value=">" name="pageNo:@(pi.PageNo+1)" />        
+        <input type="submit" value=">>" name="pageNo:@(pi.LastPageNo)" />    
+    }
+</div>

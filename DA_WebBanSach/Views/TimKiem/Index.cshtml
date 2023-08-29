@@ -1,0 +1,54 @@
+﻿@model IEnumerable<DA_WebBanSach.Models.Sach>
+@{
+    ViewBag.Title = "Index";
+}
+<div class="box_book">
+    <div class="box_book_title">
+        <a href="@Url.Action("Index","TimKiem")">Tìm Kiếm</a>
+    </div>
+    <div class="box_book_search">
+        @using (Html.BeginForm())
+        {
+            <input type="text" name="search" value="@ViewBag.tukhoa" onfocus="if (this.value=='Tìm kiếm...') this.value='';" onblur="if (this.value=='') this.value='Tìm kiếm...';" />
+            <select name="theoLoai">
+                <option value="byTenSach">Tên Sách</option>
+                <option value="byTenTG">Tên Tác Giả</option>
+            </select>
+            <input type="submit" value="Tìm" />
+        }
+    </div>
+    <div class="box_book_area" style="padding: 15px 0px 15px 15px; width: 665px">
+        <div class="content" style="float: left">
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <div class="book_outline">
+                    <a href="@Url.Action("Index", "Sach", new { id=item.SachID})">
+                        <img src="~/Images/Sach/@item.AnhBia" /></a>
+                    <div class="sticky">
+                        <b class="sticky_eng" title="Truyện tiếng Anh">&nbsp;</b>
+                        <span class="giacungloai">Giá: @item.DonGia</span>
+                    </div>
+                    <div class="book_title">
+                        <a href="@Url.Action("Index", "Sach", new { id=item.SachID})">@item.TenSach</a>
+                    </div>
+                    <div class="book_outline_desc">
+                        <div class="book_outline_desc_inner">
+                            <div class="book_outline_desc_inner_title">@item.TenSach</div>
+                            <div class="book_outline_desc_inner_author">
+                                @foreach (var tg in item.ChiTietTacGias)
+                                {@tg.TacGia.TenTG} | @item.NgayXuatBan.Year | @item.NhaXuatBan.TenNXB</div>
+                            <div>@item.TomTat</div>
+                        </div>
+                    </div>
+                </div>
+        }
+    }else{
+        <h2>@ViewBag.Error</h2>
+    }
+        </div>
+    </div>
+    <!--End class box_book_area-->
+</div>
+<!--End class box_book||Sách truyện cùng thể loại-->

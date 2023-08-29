@@ -1,0 +1,85 @@
+﻿@model DA_WebBanSach.Models.TinTuc
+
+@{
+    ViewBag.Title = "Thêm Tin Tức";
+}
+
+<ul class="breadcrumb">
+      <li><a href="@Url.Action("Index", "Home")">Quản Lý</a><span class="divider">&raquo;</span></li>
+      <li><a href="@Url.Action("Index", "TinTuc")">Tin Tức</a><span class="divider">&raquo;</span></li>
+      <li>Thêm Tin Tức</li>
+</ul>
+
+@using (Html.BeginForm("Create", "TinTuc", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+    <div class="row">
+			<div class="span12">
+				<div class="box-tab">
+					<div class="tabbable">
+						<!-- Only required for left/right tabs -->
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#tab1" data-toggle="tab"><i class="black-icons pencil"></i> Thêm Tin Tức</a></li>
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane active" id="tab1">
+								<div class="form-horizontal ucase">
+										<div class="control-group">
+											<label class="control-label" for="input01">Tiêu Đề</label>
+											<div class="controls">
+                                                @Html.EditorFor(model => model.TieuDe, new { @class = "input-xlarge text-tip"})
+                                                @Html.ValidationMessageFor(model => model.TieuDe)
+											</div>
+										</div>
+                                        <div class="input-append date" id="datepicker" data-date="@DateTime.Now.ToString("dd/MM/yyyy")" data-date-format="dd/mm/yyyy">
+								            <div class="control-group">
+									            <label class="control-label">Ngày Viết</label>
+									            <div class="controls">
+										            <div class="input-append">
+											            @Html.EditorFor(model => model.NgayViet)
+                                                        @Html.ValidationMessageFor(model => model.NgayViet)
+											            <span class="add-on margin-fix"><i class="icon-th"></i></span>
+										            </div>
+									            </div>
+								            </div>
+							            </div>
+                                         <div class="control-group">
+											<label class="control-label">Nhân Viên Viết</label>
+											<div class="controls">
+                                                @Html.DropDownList("UserId", (IEnumerable<SelectListItem>)ViewBag.UserId, new { @class = "chzn-select" })
+                                                @Html.ValidationMessageFor(model => model.NguoiDung.UserName)
+											</div>
+										</div>
+                                        <div class="control-group">
+                                            <label class="control-label">Ảnh Bìa</label>
+                                            <div class="controls">
+                                                 <input type="file" name="myfile" />
+                                                    @ViewData["kichthuoc"]
+                                                    @ViewData["loaianh"]
+                                                    @ViewData["hinh"]
+									        </div>
+                                        </div>
+										<div class="control-group">
+											<label class="control-label">Tóm Tắt</label>
+											<div class="controls">
+                                                @Html.TextAreaFor(model => model.TomTat, new { @id = "editor" })
+											</div>
+										</div>
+                                        <div class="control-group">
+											<label class="control-label">Nội Dung</label>
+											<div class="controls">
+                                                @Html.TextAreaFor(model => model.NoiDung, new { @id = "post-editor" })
+											</div>
+										</div>
+										<div class="form-actions">
+											<button type="submit" class="btn btn-success">Tạo Mới</button>
+											<button class="btn btn-warning" type="reset">Làm Lại</button>
+										</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+}

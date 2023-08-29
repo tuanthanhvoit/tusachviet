@@ -1,0 +1,88 @@
+﻿@model IEnumerable<DA_WebBanSach.Models.HoaDon>
+@{
+    ViewBag.Title = "Hóa Đơn";
+}
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Quản Lý</a><span class="divider">&raquo;</span></li>
+    <li>Hóa Đơn</li>
+</ul>
+
+<div class="row">
+    <div class="span12">
+        <div class="widget-block">
+            <div class="widget-head">
+                <h5>
+                    Danh Sách Hóa Đơn</h5>
+                <div class="widget-control pull-right"> 
+                    <a href="#" data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-plus">
+                    </i><b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("Create")"><i class="icon-plus"></i> Thêm Mới</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="widget-content">
+                <div class="widget-box">
+                    <table class="data-tbl-tools table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Mã
+                                </th>
+                                <th>
+                                    Tổng Tiền
+                                </th>
+                                <th>
+                                    Ngày Lập
+                                </th>
+                                <th>
+                                    Tiền Khách Trả
+                                </th>
+                                <th>
+                                    Tiền Thối
+                                </th>
+                                <th>
+                                    Nhân Viên
+                                </th>
+                                <th>
+                                    Chức Năng
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.HoaDonID)
+                                    </td>
+                                    <td>
+                                        @item.TongTien.ToString("0,0")
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NgayLapHD)
+                                    </td>
+                                    <td>
+                                        @item.TienKhachTra.ToString("0,0")
+                                    </td>
+                                    <td>
+                                        @item.TienThoi.ToString("0,0;-0,0;0")
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NguoiDung.UserName)
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Details", "HoaDon", new { id = item.HoaDonID })" class="color-icons find_co" title="Xem Chi Tiết">
+                                        </a>
+                                        <a href="@Url.Action("Edit", "HoaDon", new { id = item.HoaDonID })" class="color-icons hammer_screwdriver_co" title="Sửa">
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

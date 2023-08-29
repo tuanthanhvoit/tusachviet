@@ -1,0 +1,7 @@
+﻿<div class="bls_search">
+    @using (Html.BeginForm("Index", "TimKiem", FormMethod.Post))
+    {
+        <input type="text" name="search" value="Tìm kiếm..." onfocus="if (this.value=='Tìm kiếm...') this.value='';" onblur="if (this.value=='') this.value='Tìm kiếm...';" />
+        <input type="submit" name="btnSearch" id="btnSearch" value=" " />
+    }
+</div>

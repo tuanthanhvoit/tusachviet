@@ -1,0 +1,106 @@
+﻿@model DA_WebBanSach.Models.SachKM
+
+@{
+    ViewBag.Title = "Sách";
+}
+
+<div class="box_book">
+    <div class="box_book_area">
+        <div class="book_detail">
+            <img id="hinhsach@{@Model.Sach.SachID}" src="~/Images/Sach/@Model.Sach.AnhBia" width="300px" height="429px" />
+            <div class="book_detail_inner">
+                
+                <a href="@Url.Action("Index", "Sach", new { id = Model.Sach.SachID })">
+                    <h1>@Html.DisplayFor(s => s.Sach.TenSach)</h1>
+                </a>
+                <div class="book_detail_inner_author">
+                    @foreach (var tg in Model.Sach.ChiTietTacGias)
+                    {@tg.TacGia.TenTG} | @Html.DisplayFor(s => s.Sach.NgayXuatBan.Year) | @Html.DisplayFor(s => s.Sach.NhaXuatBan.TenNXB)
+                </div>
+                <div class="sticky">
+                    <h4 style="color:white"><span class="giacungloai">Đơn Giá: @Model.Sach.DonGia.ToString("0,0")  @if (Model.GiaGiam < 1)
+                                                                                                             { 
+                                                                                                @:Giá KM: @Model.GiaBan.ToString("0,0")
+                                                                                             }</span></h4>
+                </div>
+                <div class="book_detail_inner_content">
+                    @Html.DisplayFor(s => s.Sach.TomTat)
+                </div>
+                <div class="book_detail_inner_category">
+                    Thể loại:
+                    <font color="#4DA9FF"> 
+                    @{foreach (var ls in Model.Sach.ChiTietLoaiSaches)
+                      {
+                          @ls.LoaiSach.TenLS  @:&nbsp&nbsp
+                      }
+                    }  
+                    </font>
+                </div>
+                <a class="read datmua" data-id="@Model.Sach.SachID"></a>
+            </div>
+        </div>
+        <!--End class book_detail-->
+    </div>
+    <!--End class box_book_area-->
+</div>
+<!--End class box_book Details-->
+<div class="box_book">
+    <div class="box_book_title">
+        <a>Sách | Truyện cùng thể loại</a>
+    </div>
+    <div class="box_book_area" style="padding: 15px 0px 15px 15px; width: 665px">
+        @foreach (var sachCL in ViewBag.listsach)
+        {
+            <div class="book_outline">
+                <a><img id="hinhsach@{@sachCL.SachID}" src="~/Images/Sach/@sachCL.AnhBia" />
+                <div class="sticky">
+                    <b class="sticky_eng datmua" data-id="@sachCL.SachID" title="Thêm Giỏ Hàng">&nbsp;</b>
+                    <span class="giacungloai">Giá: @Html.DisplayFor(s => s.Sach.DonGia)</span>
+                </div>
+                <div class="book_title">@sachCL.TenSach</div>
+                <div class="book_outline_desc">
+                    <div class="book_outline_desc_inner">
+                        <div class="book_outline_desc_inner_title">@sachCL.TenSach</div>
+                        <div class="book_outline_desc_inner_author">@foreach(var tgcl in @sachCL.ChiTietTacGias){@tgcl.TacGia.TenTG} | @sachCL.NgayXuatBan.Year</div>
+                        <div>@sachCL.TomTat</div>
+                    </div>
+                </div>
+                </a>
+            </div>
+        }
+    </div>
+    <!--End class box_book_area-->
+</div>
+<!--End class box_book||Sách truyện cùng thể loại-->
+
+@section scripts{
+    <script>
+        $(function () {
+            $(".datmua").click(function () {
+                id = $(this).attr("data-id");
+                $.ajax({
+                    url: "/GioHang/AddtoCart",
+                    data: { id: id },
+                    success: function (response) {
+                        eval(response);
+                        // hiệu ứng
+                        css = ".hinh-bay {background:url(?);background-size: 100% 100%;}";
+                        csshinhbay = css.replace("?", $("#hinhsach" + id).attr("src"));
+                        
+                        $("#hinh-bay-css").html(csshinhbay);
+                        options = { to: "#cart-image", className: "hinh-bay" };
+                        $("#hinhsach" + id).effect("transfer", options, 500, function () {
+                            $("#cart-image").effect("bounce", 100);
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}
+<style id="hinh-bay-css">
+    .hinh-bay {
+        background: url(/Images/Sach/01.jpg);
+        background-size: 100% 100%;
+    }
+</style>

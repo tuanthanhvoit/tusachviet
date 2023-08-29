@@ -1,0 +1,170 @@
+﻿@model IEnumerable<DA_WebBanSach.Models.HoaDon>
+@{
+    ViewBag.Title = "Thêm Hóa Đơn";
+    var cart = DA_WebBanSach.Models.GioHang.CartDHAdmin;
+}
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Quản Lý</a><span class="divider">&raquo;</span></li>
+    <li><a href="@Url.Action("Index", "HoaDon")">Hóa Đơn</a><span class="divider">&raquo;</span></li>
+    <li>Thêm Hóa Đơn</li>
+</ul>   
+@ViewBag.ErrorHoaDon
+
+@if (TempData["ErrorThemSach"]!=null)
+{
+    @TempData["ErrorThemSach"].ToString()
+}
+
+<div class="row">
+    <div class="span12">
+        <div class="widget-block">
+            <div class="widget-head-one">
+                @using (Html.BeginForm("Create", "HoaDon", FormMethod.Post)){
+                    <table>
+                        @if (cart.Count != 0){
+                        <tr>
+                            <td><h4>Số Lượng Sách: </h4></td>
+                            <td><h4 id="cart-count"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Có @cart.Count Sách</h4></td>
+                        </tr>
+                        <tr>
+                            <td><h4>Tổng Cộng: </h4></td>
+                            <td><h4 id="cart-amount"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  @cart.Amount VNĐ</h4></td>
+                        </tr>
+                        }
+                        <tr>
+                            <td>Tiền Khách Trả: </td>
+                            <td><input type="text" name="txtTienKhachTra" id="txtTienKhachTra" value=" " /></td>
+                        </tr>
+                        <tr>
+                            <td>Tiền Thối: </td>
+                            <td><input type="text" name="txtTienThoi" id="txtTienThoi" value=" " /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><input type="submit" value="  Tính Tiền  " /></td>
+                        </tr>
+                    </table>
+                }
+            </div>
+        </div>
+        <div class="widget-block">
+            <div class="widget-head">
+                @using (Html.BeginForm("ThemSach", "HoaDon", FormMethod.Post))
+                {
+                <input type="text" name="txtMaVach" id="txtMaVach" value=" " /> <input type="submit" class="btnnew" value="  Thêm Sách  " />
+                }
+            </div>
+            @if (cart.Count!=0)
+            {
+                using (Html.BeginForm("QuanLy", "HoaDon", FormMethod.Post)){
+            <div class="widget-head-two">
+                 <input type="submit" name="btnAction" class="btnnew" value="Cập Nhật" />
+                 <input type="submit" name="btnAction" class="btn btn-danger" title="Xóa" value="Xóa Tất Cả" onclick="return confirm('Bạn Có Muốn Xóa Hay Không');" />
+            </div>
+            <div class="widget-content">
+                <div class="widget-box">
+                    <table class="data-tbl-tools-gh table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Mã Sách
+                                </th>
+                                <th>
+                                    Tên Sách
+                                </th>
+                                <th>
+                                    Hình
+                                </th>
+                                <th>
+                                    Số Lượng
+                                </th>
+                                <th>
+                                    Giá
+                                </th>
+                                <th>
+                                    Tổng Tiền
+                                </th>
+                                <th>
+                                    Chức Năng
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var item in cart._Items)
+                        {
+                                <tr id="@item.SachID">
+                                    <td>
+                                        @item.SachID
+                                    </td>
+                                    <td>
+                                        @item.TenSach
+                                    </td>
+                                    <td>
+                                        <img src="~/Images/Sach/@Html.DisplayFor(modelItem => item.Hinh)" width="50px" height="70px" /> 
+                                    </td>
+                                    <td>
+                                        <input name="qty@(item.SachID)" size="5" value="@item.SoLuong" />
+                                    </td>
+                                    <td>
+                                        @item.Gia
+                                    </td>
+                                    <td>
+                                        @(item.SoLuong * item.Gia)
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-danger remove-from-cart" data-id="@item.SachID" title="Xóa"><i class="icon-trash icon-white"></i>Xóa</a> 
+                                    </td>
+                                </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+@section Scripts{
+<script>
+        $(function () {
+                $("#txtMaVach").focus();
+        })
+        $(function () {
+            $("#txtTienKhachTra").blur(function () {
+                var dv = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+                var tongtien = parseInt($("#cart-amount").html().replace(dv, '').replace(' VNĐ', '').trim());
+                var tientr = parseInt($("#txtTienKhachTra").val().trim());
+                if (tongtien > tientr) {
+                    alert("Tiền Khách Trả Nhỏ Hơn Tổng Tiền");
+                    $("#txtTienKhachTra").focus();
+                } else {
+                    $("#txtTienThoi").val(tientr - tongtien);
+                }
+            });
+        });
+        $(function () {
+            $(".remove-from-cart").click(function () {
+                var kt = confirm("Bạn Có Muốn Xóa Hay Không");
+                if (kt) {
+                    id = $(this).attr("data-id");
+                    $.ajax({
+                        url: "/QuanLy/HoaDon/Remove",
+                        data: { id: id },
+                        success: function (response) {
+                            eval(response);
+                            $("tr[id=" + id + "]").hide(500, function () {
+                                $("tr[id=" + id + "]").html("");
+                            });
+                        }
+                    });
+                }
+                return false;
+            });
+        });
+        function fnUpdateCartInfo(count, amount) {
+            $("#cart-count").html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Có" + count + " Sách");
+            $("#cart-amount").html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  " + amount + " VNĐ");
+
+        }
+</script>
+}

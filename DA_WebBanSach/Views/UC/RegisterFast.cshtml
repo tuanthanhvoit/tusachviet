@@ -1,0 +1,42 @@
+﻿@model DA_WebBanSach.Models.RegisterModel
+
+<div class="loressup_from_res">
+    @using (Html.BeginForm("RegisterFast", "Account", FormMethod.Post, new { @class = "loressup_from_res_inner" }))
+    {
+        @Html.AntiForgeryToken()
+        <table>
+            <tr>
+                <td>Tên đăng nhập:</td>
+                <td>
+                    @Html.TextBoxFor(m => m.UserName, new { @onfocus="if (this.value=='Nhập tên đăng nhập...') this.value='';", @onblur="if (this.value=='') this.value='Nhập tên đăng nhập...';"})
+                    @Html.ValidationMessageFor(m => m.UserName)<br />
+                </td>
+            </tr>
+            <tr>
+                <td>Mật khẩu:</td>
+                <td>
+                    @Html.PasswordFor(m => m.Password, new { @onfocus="if (this.value=='*****') this.value='';", onblur="if (this.value=='') this.value='*****';"})
+                    @Html.ValidationMessageFor(m=>m.Password)<br />
+                </td>
+            </tr>
+            <tr>
+                <td>Xác nhận mật khẩu:</td>
+                <td>
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @onfocus="if (this.value=='*****') this.value='';", onblur="if (this.value=='') this.value='*****';"})
+                    @Html.ValidationMessageFor(m=>m.ConfirmPassword)<br />
+                </td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td>
+                    @Html.TextBoxFor(m => m.Email, new { @onfocus="if (this.value=='Nhập email...') this.value='';", onblur="if (this.value=='') this.value='Nhập email...';"})
+                    @Html.ValidationMessageFor(m=>m.Email)
+                </td>
+            </tr>
+        </table>
+        <div class="loressup_from_res_inner_button">
+            <input type="submit" value="Đồng ý" />
+            <input type="reset" value="Nhập lại" />
+        </div>
+    }
+</div>

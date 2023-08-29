@@ -1,0 +1,93 @@
+﻿@model IEnumerable<DA_WebBanSach.Models.SachKM>
+
+@{
+    ViewBag.Title = "Index";
+    var ls = ViewBag.LoaiSach as DA_WebBanSach.Models.LoaiSach;
+}
+
+<div class="box_book">
+    <div class="box_book_title">
+        <a href="@Url.Action("Index", "LoaiSach", new { id = ls.LoaiSachID })">@ls.TenLS</a>
+    </div>
+    <div class="box_book_area" style="padding: 15px 0px 15px 15px; width: 665px">
+        <div class="content" style="float: left">
+            @foreach (var item in Model)
+            {
+                <div class="book_outline">
+                    <a>
+                        <a href="@Url.Action("Index", "Sach", new { id = item.Sach.SachID })">
+                            <img id="@item.Sach.SachID" src="~/Images/Sach/@item.Sach.AnhBia" />
+                        </a>
+                        <div class="sticky">
+                            <b class="sticky_eng" data-id="@item.Sach.SachID" title="Truyện tiếng Anh">&nbsp;</b>
+                            <span class="giacungloai">Giá: @item.Sach.DonGia.ToString("0,0")
+                            @if (@item.GiaGiam < 1)
+	                        {
+		                        @:Giá KM: @item.GiaBan.ToString("0,0")
+	                        }
+                            </span>
+                        </div>
+                        <div class="book_title">
+                            <a href="@Url.Action("Index", "Sach", new { id = item.Sach.SachID })">@item.Sach.TenSach</a>
+                        </div>
+                        <div class="book_outline_desc">
+                            <div class="book_outline_desc_inner">
+                                <div class="book_outline_desc_inner_title">@item.Sach.TenSach</div>
+                                <div class="book_outline_desc_inner_author">
+                                    @foreach (var ct in item.Sach.ChiTietTacGias)
+                                    {@ct.TacGia.TenTG} | @item.Sach.NgayXuatBan.Year
+                                </div>
+                                <div>@item.Sach.TomTat</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+    <!--End class box_book_area-->
+</div>
+<!--End class box_book||Sách truyện cùng thể loại-->
+@section scripts{
+    <script>
+        $(function () {
+            $(".sticky_eng").click(function () {
+                id = $(this).attr("data-id");
+                $.ajax({
+                    url: "/GioHang/AddtoCart",
+                    data: { id: id },
+                    success: function (response) {
+                        eval(response);
+                        // hiệu ứng
+                        css = ".hinh-bay {background:url(?);background-size: 100% 100%;}";
+                        csshinhbay = css.replace("?", $("#" + id).attr("src"));
+                        $("#hinh-bay-css").html(csshinhbay);
+                        options = { to: "#cart-image", className: "hinh-bay" };
+                        $("#" + id).effect("transfer", options, 500, function () {
+                            $("#cart-image").effect("bounce", 100);
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}
+<style id="hinh-bay-css">
+    .hinh-bay {
+        background: url(/Images/Sach/01.jpg);
+        background-size: 100% 100%;
+    }
+</style>
+
+<div id="phantrang">
+    @using (Html.BeginForm())
+    {
+        var pi = DA_WebBanSach.Models.PhanTrang.Get("LoaiSach", 10);
+        <input type="submit" value="<<" name="pageNo:0" />
+        <input type="submit" value="<" name="pageNo:@(pi.PageNo - 1)" />
+        <input value="@(pi.PageNo + 1)" name="pageHT" /> @:/@(pi.LastPageNo + 1) trang
+        <input type="submit" value="Đến Trang" name="dentrang" />
+        <input type="submit" value=">" name="pageNo:@(pi.PageNo + 1)" />        
+        <input type="submit" value=">>" name="pageNo:@(pi.LastPageNo)" />    
+    }
+</div>

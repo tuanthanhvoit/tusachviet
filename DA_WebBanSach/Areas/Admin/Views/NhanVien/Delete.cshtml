@@ -1,0 +1,99 @@
+﻿@model DA_WebBanSach.Models.NguoiDung
+@{
+    ViewBag.Title = "Xóa Nhân Viên";
+}
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Quản Lý</a><span class="divider">&raquo;</span></li>
+    <li><a href="@Url.Action("Index", "NhanVien")">Nhân Viên</a><span class="divider">&raquo;</span></li>
+    <li>Xóa Nhân Viên</li>
+</ul>
+<div class="row">
+    <div class="span12">
+        <div class="nonboxy-widget">
+            <div class="widget-head">
+                <h5>
+                    <i class="black-icons blocks_images"></i>Xóa Nhân Viên: @Html.DisplayTextFor(model=>model.HoTen)
+                </h5>
+                
+            </div>
+            <div class="widget-content">
+                <div class="widget-box">
+                    <div class="form-horizontal well" id="signupform">
+                    <fieldset>
+                        <div class="control-group">
+                            <label class="control-label"> <b>Họ Tên:</b></label>
+                            <div class="control-labelb">
+                                @Html.DisplayFor(model => model.HoTen)
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"> <b>Email:</b></label>
+                            <div class="control-labelb">
+                                @Html.DisplayFor(model => model.Email)
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"> <b>Ngày Sinh:</b></label>
+                            <div class="control-labelb">
+                                @Html.DisplayFor(model => model.NgaySinh)
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"> <b>Ngày Vào Làm:</b></label>
+                            <div class="control-labelb">
+                                @foreach (var item in Model.NhanViens)
+                                {
+                                    @item.NgayVaoLam
+                                }
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"> <b>Điện Thoại:</b></label>
+                            <div class="control-labelb">
+                                @Html.DisplayFor(model => model.DienThoai)
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"> <b>Giới Tính:</b></label>
+                            <div class="control-labelb">
+                                @if (Model.GioiTinh == false)
+                                {
+                                    var gioitinh = "Nam";
+                                    @Html.DisplayFor(model => gioitinh)
+                                }
+                                else
+                                {
+                                    var gioitinh = "Nữ";
+                                    @Html.DisplayFor(model => gioitinh)
+                                }
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"> <b>Địa Chỉ:</b></label>
+                            <div class="control-labelb">
+                                @Html.DisplayFor(model => model.DiaChi), @Html.DisplayFor(model => model.Quan), @Html.DisplayFor(model => model.ThanhPho)
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"> <b>Chức Vụ:</b></label>
+                            <div class="control-labelb">
+                                @foreach (var item in ViewBag.Roles)
+                                {
+                                    @item<br />
+                                }
+                            </div>
+                        </div>
+                    </fieldset>
+                    @using (Html.BeginForm())
+                    {
+                    <div class="form-actions">
+                        <input type="submit" value="Delete" class="btn btn-primary"/>
+                        <a href="@Url.Action("Index", "NhanVien")" class="btn btn-info">Trở Về Trang Trước</a> 
+                    </div>
+                    }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

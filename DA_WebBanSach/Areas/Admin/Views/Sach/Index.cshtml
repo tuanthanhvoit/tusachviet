@@ -1,0 +1,121 @@
+﻿@model IEnumerable<DA_WebBanSach.Models.Sach>
+
+@{
+    ViewBag.Title = "Sách";
+}
+
+<ul class="breadcrumb">
+      <li><a href="@Url.Action("Index","Home")">Quản Lý</a><span class="divider">&raquo;</span></li>
+      <li>Sách</li>
+</ul>
+<div class="row">
+    <div class="span12">
+        <div class="widget-block">
+            <div class="widget-head">
+                <h5>
+                    Danh Sách Sách</h5>
+                <div class="widget-control pull-right">
+                    <a href="#" data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-plus"></i>
+                        <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("Create")"><i class="icon-plus"></i>Thêm Mới Sách</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="widget-content">
+                <div class="widget-box">
+                    <table class="data-tbl-tools table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Mã
+                                </th>
+                                <th>
+                                    Tên Sách
+                                </th>
+                                <th>
+                                    Đơn Giá
+                                </th>
+                                <th>
+                                    Ảnh Bìa
+                                </th>
+                                <th>
+                                    Ngày Xuất Bản
+                                </th>
+                                <th>
+                                    Loại Bìa
+                                </th>
+                                <th>
+                                    Tóm Tắt
+                                </th>
+                                <th>
+                                    Số Lượng Tồn
+                                </th>
+                                <th>
+                                    Nhà Xuất Bản
+                                </th>
+                                <th>
+                                    Mã Vạch
+                                </th>
+                                <th>
+                                    Chức năng
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem=>item.SachID)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TenSach)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DonGia)
+                                    </td>
+                                    <td>
+                                        <img src="~/Images/Sach/@Html.DisplayFor(modelItem => item.AnhBia)" width="50px" height="70px" /> 
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NgayXuatBan)
+                                    </td>
+                                    <td>
+                                         @if (item.LoaiBia == false)
+                                         {
+                                             var loaibia = "Bìa cứng";
+                                            @Html.DisplayFor(model => loaibia)
+                                         }
+                                         else
+                                         {
+                                             var loaibia = "Bìa mềm";
+                                            @Html.DisplayFor(model => loaibia)
+                                         }
+                                    </td>
+                                    <td>
+                                         @Html.DisplayTextFor(modelItem => item.TomTat)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SoLuongTon)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NhaXuatBan.TenNXB)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Mavach)
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Details", "Sach", new { id = item.SachID })" class="color-icons find_co" title="Xem Chi Tiết"></a> 
+                                        <a href="@Url.Action("Edit", "Sach", new { id = item.SachID })" class="color-icons hammer_screwdriver_co" title="Sửa"></a> 
+                                        <a href="@Url.Action("Delete", "Sach", new { id = item.SachID })" class="color-icons cross_co" title="Xóa"></a> 
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

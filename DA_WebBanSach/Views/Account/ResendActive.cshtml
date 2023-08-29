@@ -1,0 +1,25 @@
+﻿@model DA_WebBanSach.Models.ConfirmModel
+@{
+    ViewBag.Title = "Gửi Lại Mã Kích Hoạt";
+}
+
+<div class="box_book">
+    <div class="box_book_title">
+        <a>Gửi Lại Mã Kích Hoạt</a>
+    </div>
+    <div class="box_book_area" style="padding: 15px 0px 15px 15px; width: 665px">
+            <div class="form">
+            @using (Html.BeginForm("ResendActive", "Account", FormMethod.Post, new { id = "contactform" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                <p class="contact"><label for="matkhau">Email</label></p> 
+    			@Html.TextBoxFor(m => m.Email, new { placeholder="example@domain.com", tabindex="1" })        
+   			    @Html.ValidationMessageFor(m => m.Email)
+                <br>
+                <input class="buttom" name="submit" id="submit" tabindex="5" value="Gửi" type="submit">
+            }
+            <h4>@ViewBag.Error</h4>
+            </div>
+    </div>
+</div>

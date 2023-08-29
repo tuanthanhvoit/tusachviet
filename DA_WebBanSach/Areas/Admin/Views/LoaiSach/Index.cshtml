@@ -1,0 +1,80 @@
+﻿@model IEnumerable<DA_WebBanSach.Models.LoaiSach>
+
+@{
+    ViewBag.Title = "Loại Sách";
+}
+
+<ul class="breadcrumb">
+      <li><a href="@Url.Action("Index","Home")">Quản Lý</a><span class="divider">&raquo;</span></li>
+      <li>Loại Sách</li>
+</ul>
+<div class="row">
+    <div class="span12">
+        <div class="widget-block">
+            <div class="widget-head">
+                <h5>
+                    Danh Sách Loại Sách</h5>
+                <div class="widget-control pull-right">
+                    <a href="#" data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-plus"></i>
+                        <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("Create")"><i class="icon-plus"></i>Thêm Mới Loại Sách</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="widget-content">
+                <div class="widget-box">
+                    <table class="data-tbl-tools table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    ID
+                                </th>
+                                <th>
+                                    Tên Loại Sách
+                                </th>
+                                <th>
+                                    Ghi Chú
+                                </th>
+                                <th>
+                                    Chủng Loại
+                                </th>
+                                <th>
+                                    Chức Năng
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LoaiSachID)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TenLS)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.GhiChu)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ChungLoaiSach.TenChungLoai)
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("ThemSachLoaiSach", "LoaiSach", new { id = item.LoaiSachID })" class="color-icons book_previous_co" title="Thêm Sách Vào Loại Sách">
+                                        </a>
+                                        <a href="@Url.Action("XoaSachLoaiSach", "LoaiSach", new { id = item.LoaiSachID })" class="color-icons bin_closed_co" title="Xóa Sách Trong Loại Sách">
+                                        </a>
+                                        <a href="@Url.Action("Details", "LoaiSach", new { id = item.LoaiSachID })" class="color-icons find_co" title="Chi Tiết"></a> 
+                                        <a href="@Url.Action("Edit", "LoaiSach", new { id = item.LoaiSachID })" class="color-icons hammer_screwdriver_co" title="Sửa"></a> 
+                                        <a href="@Url.Action("Delete", "LoaiSach", new { id = item.LoaiSachID })" class="color-icons cross_co" title="Xóa"></a> 
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

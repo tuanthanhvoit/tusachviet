@@ -1,0 +1,41 @@
+﻿@model DA_WebBanSach.Models.LoginModel
+
+@{
+    ViewBag.Title = "Đăng Nhập";
+}
+<div class="box_book">
+</div>
+
+@using (Html.BeginForm(new { returnUrl = ViewBag.ReturnUrl })) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="loginah">
+      <h1>Đăng Nhập</h1>
+      <div>
+        <p>
+            @Html.TextBoxFor(m => m.UserName, new { placeholder="Username"})
+            @Html.ValidationMessageFor(m => m.UserName)
+        </p>
+        <p>
+            @Html.PasswordFor(m => m.Password, new { placeholder="Password"})
+            @Html.ValidationMessageFor(m => m.Password)
+        </p>
+        <p class="remember_me">
+          <label>
+            @Html.CheckBoxFor(m => m.RememberMe, new { id="remember_me"})
+            Ghi Nhớ
+          </label>
+        </p>
+        <p class="submit">
+            <input type="submit" name="commit" value="Đăng Nhập">
+        </p>
+      </div>
+    </div>
+
+    <div class="login-help">
+      <p>Quên Mật Khẩu? <a href="@Url.Action("QuenMatKhau","Account")">Nhấn Vào Đây Lấy Lại Mật Khẩu</a>.</p>
+    </div>
+    <div class="login-help">
+      <p>Chưa Nhận Được Đường Dẫn Kích Hoạt? <a href="@Url.Action("ResendActive","Account")">Nhấn Vào Đây Gửi Lại Đường Dẫn Kích Hoạt</a>.</p>
+    </div>
+}

@@ -1,0 +1,184 @@
+﻿@model DA_WebBanSach.Models.DonHang
+
+@{
+    ViewBag.Title = "Sửa Đơn Hàng";
+    var cart = DA_WebBanSach.Models.GioHangAdmin.CartAdmin;
+}
+
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Quản Lý</a><span class="divider">&raquo;</span></li>
+    <li><a href="@Url.Action("Index", "DonHang")">Đơn Hàng</a><span class="divider">&raquo;</span></li>
+    <li>Sửa Đơn Hàng</li>
+</ul>
+@if (TempData["Error"] != null)
+{
+    <div>
+        <ul>
+            <li><h4>@TempData["Error"]</h4></li>
+        </ul>
+    </div>
+}
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+        <div class="span13">
+            <div class="widget-block">
+                <div class="widget-head">
+                    <h5>Thông Tin Đơn Hàng</h5>
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div class="form-horizontal well white-box">
+                            <fieldset>
+                                <div class="control-group">
+                                    <label class="control-label" for="input501">
+                                        <b>Ngày Đặt:</b></label>
+                                        @Html.HiddenFor(model => model.DonHangID)
+                                        @Html.HiddenFor(model=>model.UserId)
+                                        @Html.HiddenFor(model=>model.DoiThuong)
+                                    <div class="input-append date" id="datepicker" data-date="01/01/2013" data-date-format="dd/mm/yyyy">
+                                                <div class="input-append-d">
+                                                    @Html.EditorFor(model => model.NgayDatHang)
+                                                    @Html.ValidationMessageFor(model => model.NgayDatHang)
+                                                    <span class="add-on margin-fix"><i class="icon-th"></i></span>
+                                                </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="input501">
+                                        <b>Ngày Giao:</b></label>
+                                    <div class="input-append date" id="datepicker2" data-date="01/01/2013" data-date-format="dd/mm/yyyy">
+                                                <div class="input-append-d">
+                                                    @Html.EditorFor(model => model.NgayGiaoHang)
+                                                    @Html.ValidationMessageFor(model => model.NgayGiaoHang)
+                                                    <span class="add-on margin-fix"><i class="icon-th"></i></span>
+                                                </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="input501">
+                                        <b>Hình Thức Thanh Toán:</b></label>
+                                    <div class="control-labelb">
+                                        @Html.DropDownList("HinhThucThanhToan")
+                                        @Html.ValidationMessageFor(model => model.HinhThucThanhToan)
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="input501">
+                                        <b>Địa Điểm Nhận Hàng:</b></label>
+                                    <div class="control-labelb">
+                                        @Html.EditorFor(model => model.DiaDiemNhanHang)
+                                        @Html.ValidationMessageFor(model => model.DiaDiemNhanHang)
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="input501">
+                                        <b>Quận:</b></label>
+                                    <div class="control-labelb">
+                                        @Html.EditorFor(model => model.Quan)
+                                        @Html.ValidationMessageFor(model => model.Quan)
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="input501">
+                                        <b>Thành Phố:</b></label>
+                                    <div class="control-labelb">
+                                        @Html.EditorFor(model => model.ThanhPho)
+                                        @Html.ValidationMessageFor(model => model.ThanhPho)
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="input501">
+                                        <b>Khách Hàng:</b></label>
+                                    <div class="control-labelb">
+                                        @Html.DisplayFor(model => model.NguoiDung.HoTen)
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="input501">
+                                        <b>Nhân Viên:</b></label>
+                                    <div class="control-labelb">
+                                        @Html.TextBoxFor(model => model.TenNhanVien, new { @class="disabled", disabled="disabled"})
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="input501">
+                                        <b>Tình Trạng Đơn Hàng:</b></label>
+                                    <div class="control-labelb">
+                                        @Html.DropDownList("TinhTrangDonHang")
+                                        @Html.ValidationMessageFor(model => model.TinhTrangDonHang)
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    @if (Model.TenNhanVien == null || Model.TenNhanVien == User.Identity.Name)
+                                    {
+                                    <input type="submit" class="btn btn-primary" value="Sửa Đơn Hàng" />
+                                    }
+                                    <a href="@Url.Action("Index", "DonHang")" class="btn btn-info">Trở Về Trang
+                                        Đơn Hàng</a>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    @using (Html.BeginForm("EditChiTiet", "DonHang", FormMethod.Post))
+    {
+        <div class="span6 ">
+            <div class="widget-block">
+                <div class="widget-head">
+                    <h5><i class="black-icons money"></i>Chi Tiết Đơn Hàng</h5>
+                </div>
+                <div class="widget-content">
+                    <div class="widget-selectbox">
+                        <ul>
+                            <li class="row-counts">Tổng số lượng : @Html.DisplayFor(model => cart.Count)</li>
+                            <li class="right">Tổng tiền: @Html.DisplayFor(model => cart.Amount)</li>
+                            @Html.Hidden("maDH",Model.DonHangID)
+                        </ul>
+                    </div>
+                    <div class="widget-box">
+                        <table class="table order-tbl">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Mã Chi Tiết</th>
+                                    <th>Tên Sách </th>
+                                    <th>Giá Bán </th>
+                                    <th>Số Lượng </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in cart._Items)
+                                {
+                                    <tr>
+                                        <td><input type="checkbox" name="chk@(item.ChiTietDonHangID)" /></td>
+                                        <td>@item.ChiTietDonHangID</td>
+                                        <td>
+                                            <a href="@Url.Action("Details", "Sach", new { id = item.SachID })" />
+                                            @item.Sach.TenSach
+                                        </td>
+                                        <td>@item.DonGia</td>
+                                        <td><input name="qty@(item.ChiTietDonHangID)" value="@item.SoLuong" /></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                @if (Model.TenNhanVien == "" || Model.TenNhanVien == User.Identity.Name)
+                {
+                    <div class="form-actions">
+                                    <input type="submit" name="btnAction" class="btn btn-primary" value="Sửa" />
+                                    <input type="submit" name="btnAction" class="btn btn-primary" value="Xóa" />
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
+

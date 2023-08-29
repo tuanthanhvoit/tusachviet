@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "Chi Tiết Giỏ Hàng";
+    var Cart = DA_WebBanSach.Models.GioHang.Cart;
+}
+
+@using (Html.BeginForm("Manage", "GioHang", FormMethod.Post, new { @class= "giohang"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+<div id="psdgraphics-com-table">
+	<div id="psdg-header">
+		<span class="psdg-bold">Quản Lý Giỏ Hàng</span><br />
+	</div>
+	<div id="psdg-top">
+		<div class="psdg-top-cell" style="width:29px; text-align:left; padding-left: 15px;">ID</div>
+		<div class="psdg-top-cell-title">Tên Sách</div>
+		<div class="psdg-top-cell">Đơn Giá</div>
+		<div class="psdg-top-cell">Số Lượng</div>
+		<div class="psdg-top-cell">Tổng Tiền</div>
+		<div class="psdg-top-cell-end" style="border:none;"></div>
+	</div>
+	<div id="psdg-middle">
+        @foreach (var p in Cart._Items)
+        {
+        <div id="@p.SachID">
+		    <div class="psdg-left">@p.SachID</div>
+		    <div class="psdg-right-title">@p.TenSach</div>
+		    <div class="psdg-right">@p.Gia.ToString("0,0")</div>
+		    <div class="psdg-right"><input name="qty@(p.SachID)" size="5" value="@p.SoLuong" /></div>
+		    <div class="psdg-right">@((p.Gia * p.SoLuong).ToString("0,0"))</div>
+		    <div class="psdg-right-end">
+                <img class="remove-from-cart" data-id="@p.SachID" src="~/Images/icons/Delete.png" />
+		    </div>
+        </div>
+        }
+		<div id="psdg-bottom">
+			<div class="psdg-bottom-cell" style="width:29px; text-align:left; padding-left: 15px;"></div>
+			<div class="psdg-bottom-cell-title"></div>
+			<div class="psdg-bottom-cell"></div>
+			<div class="psdg-bottom-cell">Tổng Tiền</div>
+			<div class="psdg-bottom-cell amout">@String.Format("{0:0,0;-0.0;0 VNĐ}",Cart.Amount) </div>
+			<div class="psdg-bottom-cell-end" style="border:none;"></div>
+		</div>
+	</div>
+	<div id="psdg-footer">
+		@ViewBag.Error
+	</div>
+</div>
+<hr />
+<div id="phantrang">
+    <input type="submit" name="btnAction" value="Cập Nhật" />
+    <input type="submit" name="btnAction" value="Xóa Tất Cả" onclick="return confirm('Bạn Có Muốn Xóa Hay Không')" />
+    <input type="submit" name="btnAction" value="Tiếp Tục Mua Sách" />
+    <input type="submit" name="btnAction" value="Thanh Toán" />
+</div>
+}
+@section scripts{
+    <script>
+        $(function () {
+            $(".remove-from-cart").click(function () {
+                var kt = confirm("Bạn Có Muốn Xóa Hay Không");
+                if (kt) {
+                    id = $(this).attr("data-id");
+                    $.ajax({
+                        url: "/GioHang/Remove",
+                        data: { id: id },
+                        success: function (response) {
+                            eval(response);
+                            $("div[id=" + id + "]").hide(500, function () {
+                                $("div[id=" + id + "]").html("");
+                            });
+                        }
+                    });
+                }
+                return false;
+            });
+
+            $(".clear-cart").click(function () {
+                $(":submit[value=Clear]").click();
+            });
+        });
+    </script>
+}

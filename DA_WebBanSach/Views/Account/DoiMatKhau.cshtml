@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "Thay Đổi Mật Khẩu";
+}
+
+<div class="box_book">
+    <div class="box_book_title">
+        <a href="@Url.Action("DoiMatKhau","Account")">Thay Đổi Mật Khẩu</a>
+    </div>
+    <div class="box_book_area" style="padding: 15px 0px 15px 15px; width: 665px">
+        <div class="form">
+            @if (ViewBag.Error!=null)
+            {
+                <h4>@ViewBag.Error</h4>
+            }
+
+            @using (Html.BeginForm("DoiMatKhau", "Account", FormMethod.Post, new { id = "contactform" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                <p class="contact"><label for="matkhau">Mật Khẩu Cũ</label></p> 
+                <input id="OldPassword" name="OldPassword" placeholder="Mật Khẩu Cũ" tabindex="1" type="password"> 
+        
+                <p class="contact"><label for="matkhaumoi">Mật Khẩu Mới</label></p> 
+                <input id="NewPassword" name="NewPassword" placeholder="Mật Khẩu Mới" tabindex="2" type="password"> 
+                
+                <p class="contact"><label for="laplaimatkhau">Nhập Lại Mật Khẩu Mới</label></p> 
+                <input id="ReNewPassword" name="ReNewPassword" placeholder="Nhập Lại Mật Khẩu Mới" tabindex="3" type="password"> 
+                <br>
+                <input class="buttom" name="submit" id="submit" tabindex="5" value="Lưu Mật Khẩu Mới" type="submit">
+            }
+        </div>
+    </div>
+</div>
+

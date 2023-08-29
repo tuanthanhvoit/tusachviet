@@ -1,0 +1,333 @@
+﻿@model DA_WebBanSach.Models.NhapThongKe
+
+@{
+    ViewBag.Title = "Thống Kê";
+}
+
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Quản Lý</a><span class="divider">&raquo;</span></li>
+    <li>Thống Kê</li>
+</ul>
+@ViewBag.Error
+@TempData["Error"]
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+        <div class="span6">
+            <div class="widget-block">
+                <div class="widget-head">
+                    <h5>Thống Kê Theo Ngày (Tối Đa 1 Tháng)</h5>
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div class="form-horizontal well white-box">
+                            <fieldset>
+                                <div class="control-group">
+                                    <label class="control-label" for="input501">
+                                        <b>Ngày Bắt Đầu:</b></label>
+                                    <div class="input-append date" id="datepicker" data-date="@DateTime.Now.ToString("dd-MM-yyyy")" data-date-format="dd-mm-yyyy">
+                                        <div class="input-append-d">
+                                            @Html.TextBoxFor(model => model.NgayBatDau)
+                                            @Html.ValidationMessageFor(model => model.NgayBatDau)
+                                            <span class="add-on margin-fix"><i class="icon-th"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="input501">
+                                        <b>Ngày Kết Thúc:</b></label>
+                                    <div class="input-append date" id="datepicker2" data-date="@DateTime.Now.ToString("dd-MM-yyyy")" data-date-format="dd-mm-yyyy">
+                                        <div class="input-append-d">
+                                            @Html.TextBoxFor(model => model.NgayKetThuc)
+                                            @Html.ValidationMessageFor(model => model.NgayKetThuc)
+                                            <span class="add-on margin-fix"><i class="icon-th"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <input type="submit" class="btn btn-primary" name="btnAction" value="Thống Kê Ngày" />
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    @using (Html.BeginForm("ThongKeQuy", "ThongKe", FormMethod.Post))
+    { 
+        <div class="span6">
+            <div class="widget-block">
+                <div class="widget-head">
+                    <h5>Thống Kê Theo Quý</h5>
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div class="form-horizontal well white-box">
+                            <fieldset>
+                                <div class="control-group">
+                                    <label class="control-label" for="input501">
+                                        <b>Nhập Quý:</b></label>
+                                    @Html.TextBox("QuyThang")
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="input501">
+                                        <b>Nhập Năm:</b></label>
+                                    @Html.TextBox("QuyNam")
+                                </div>
+                                <div class="form-actions">
+                                    <input type="submit" class="btn btn-primary" name="btnAction" value="Thống Kê Quý" />
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@if (ViewBag.HDThang != null)
+{ 
+    <div class="row">
+        <div class="span12">
+            <div class="graph-wrap">
+                <div class="chart-block">
+                    <div id="chart2">
+                    </div>
+                    <input class="button-reset btn btn-inverse" type="button" value="Reset" />
+                </div>
+            </div>
+        </div>
+    </div>
+    @section Scripts{
+        @Scripts.Render("~/bundles/chartJS")
+        <script>
+            $(function () {
+                $('.button-reset').click(function () { plot1.resetZoom() });
+                var s1 = [@foreach (var item in ViewBag.HDThang)
+                          {
+		                @:['Ngày @item.name', @item.TongTien],
+	                  }];
+                var s2 = [@foreach (var item in ViewBag.HDThang)
+                          {
+		                @:['Ngày @item.name', @item.TongTien],
+    	                }];
+                plot1 = $.jqplot("chart2", [s2, s1], {
+                    title: 'Thống Kê Tổng Tiền 3 Tháng Gần Nhất',
+                    // Turns on animatino for all series in this plot.
+                    animate: true,
+                    // Will animate plot on calls to plot1.replot({resetAxes:true})
+                    animateReplot: true,
+                    cursor: {
+                        show: true,
+                        zoom: true,
+                        looseZoom: true,
+                        showTooltip: false
+                    },
+                    seriesDefaults: {
+                        shadow: false  // show shadow or not.
+                    },
+                    series: [
+                        {
+                            pointLabels: {
+                                show: true
+                            },
+                            renderer: $.jqplot.BarRenderer,
+                            showHighlight: false,
+                            yaxis: 'yaxis',
+                            rendererOptions: {
+                                // Speed up the animation a little bit.
+                                // This is a number of milliseconds. 
+                                // Default for bar series is 3000. 
+                                animation: {
+                                    speed: 2500
+                                },
+                                barWidth: 15,
+                                barPadding: -15,
+                                barMargin: 0,
+                                highlightMouseOver: false
+                            }
+                        }
+                    ],
+                    axesDefaults: {
+                        pad: 1.2
+                    },
+                    axes: {
+                        xaxis: {
+                            renderer: $.jqplot.CategoryAxisRenderer,
+                        },
+                        yaxis: {
+                            autoscale: true,
+                            tickOptions: {
+                                formatString: "%'d VNĐ"
+                            }
+                        },
+                        y2axis: {
+                            autoscale: true,
+                            tickOptions: {
+                                formatString: "%'d VNĐ"
+                            }
+                        }
+                    },
+                    grid: {
+                        background: '#fff',
+                        drawBorder: false,
+                        shadow: false,
+                        gridLineColor: '#ccc',
+                        gridLineWidth: 1
+                    },
+                    highlighter: {
+                        show: true,
+                        showLabel: true,
+                        tooltipAxes: 'y',
+                        sizeAdjust: 7.5, tooltipLocation: 'ne'
+                    }
+                });
+            });
+        </script>
+    }
+}
+
+@if (ViewBag.DH != null)
+{
+    <div class="row">
+        <div class="span6">
+            <div class="graph-wrap">
+                <div class="chart-block">
+                    <div id="chart2">
+                    </div>
+                    <input class="button-reset btn btn-inverse" type="button" value="Reset" />
+                </div>
+            </div>
+        </div>
+        <div class="span6">
+            <div class="graph-wrap">
+                <div class="chart-block">
+                    <div id="chart3">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @section Scripts{
+        @Scripts.Render("~/bundles/chartJS")
+        <script>
+            $(function () {
+                $('.button-reset').click(function () { plot1.resetZoom() });
+                var s1 = [@foreach (var item in ViewBag.DH)
+                          {
+		                @:['Tháng @item.Thang', @item.TongTien],
+	                  }];
+                var s2 = [@foreach (var item in ViewBag.DH)
+                          {
+		                @:['Tháng @item.Thang', @item.TongTien],
+    	                }];
+                plot1 = $.jqplot("chart2", [s2, s1], {
+                    title: 'Thống Kê Tổng Tiền 3 Tháng Gần Nhất',
+                    // Turns on animatino for all series in this plot.
+                    animate: true,
+                    // Will animate plot on calls to plot1.replot({resetAxes:true})
+                    animateReplot: true,
+                    cursor: {
+                        show: true,
+                        zoom: true,
+                        looseZoom: true,
+                        showTooltip: false
+                    },
+                    seriesDefaults: {
+                        shadow: false  // show shadow or not.
+                    },
+                    series: [
+                        {
+                            pointLabels: {
+                                show: true
+                            },
+                            renderer: $.jqplot.BarRenderer,
+                            showHighlight: false,
+                            yaxis: 'yaxis',
+                            rendererOptions: {
+                                // Speed up the animation a little bit.
+                                // This is a number of milliseconds. 
+                                // Default for bar series is 3000. 
+                                animation: {
+                                    speed: 2500
+                                },
+                                barWidth: 15,
+                                barPadding: -15,
+                                barMargin: 0,
+                                highlightMouseOver: false
+                            }
+                        }
+                    ],
+                    axesDefaults: {
+                        pad: 1.2
+                    },
+                    axes: {
+                        xaxis: {
+                            renderer: $.jqplot.CategoryAxisRenderer,
+                        },
+                        yaxis: {
+                            autoscale: true,
+                            tickOptions: {
+                                formatString: "%'d VNĐ"
+                            }
+                        },
+                        y2axis: {
+                            autoscale: true,
+                            tickOptions: {
+                                formatString: "%'d VNĐ"
+                            }
+                        }
+                    },
+                    grid: {
+                        background: '#fff',
+                        drawBorder: false,
+                        shadow: false,
+                        gridLineColor: '#ccc',
+                        gridLineWidth: 1
+                    },
+                    highlighter: {
+                        show: true,
+                        showLabel: true,
+                        tooltipAxes: 'y',
+                        sizeAdjust: 7.5, tooltipLocation: 'ne'
+                    }
+                });
+            });
+
+            $(function () {
+                var data = [
+              @foreach (var item in ViewBag.Sach)
+              {
+		         @:['@item.TenSach', @item.Count],
+	          }];
+                var plot2 = jQuery.jqplot('chart3', [data],
+                  {
+                      title: 'Sách Bán Chạy Nhất Trong Tháng @DateTime.Now.Month',
+                      seriesDefaults: {
+                          // Make this a pie chart.
+                          renderer: jQuery.jqplot.PieRenderer,
+                          rendererOptions: {
+                              // Put data labels on the pie slices.
+                              // By default, labels show the percentage of the slice.
+                              showDataLabels: true,
+                              shadow: false
+                          }
+                      },
+                      grid: {
+                          background: '#fff',
+                          drawBorder: false,
+                          shadow: false,
+                          gridLineColor: '#ccc',
+                          gridLineWidth: 1
+                      },
+                      legend: { show: true, location: 'e' }
+                  }
+            );
+            });
+        </script>
+    }  
+}

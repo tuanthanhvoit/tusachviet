@@ -1,0 +1,51 @@
+﻿@model DA_WebBanSach.Models.TacGia
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Quản Lý</a><span class="divider">&raquo;</span></li>
+    <li><a href="@Url.Action("Index", "TacGia")">Tác Giả</a><span class="divider">&raquo;</span></li>
+    <li>Xóa Tác Giả</li>
+</ul>
+    <div class="row">
+        <div class="span12">
+            <div class="nonboxy-widget">
+                <div class="widget-head">
+                    <h5>
+                        <i class="black-icons blocks_images"></i>Xóa Tác Giả:
+                    </h5>
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div class="form-horizontal well" id="signupform">
+                            <fieldset>
+                                <div class="control-group">
+                                    <label class="control-label">
+                                        <b>Tên Tác Giả:</b></label>
+                                    <div class="control-labelb">
+                                        @Html.DisplayFor(model => model.TenTG)
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">
+                                        <b>Ghi Chú:</b></label>
+                                    <div class="control-labelb">
+                                        @Html.DisplayFor(model => model.GhiChu)
+                                    </div>
+                                </div>
+                            </fieldset>
+                            @using (Html.BeginForm())
+                            {
+                                <div class="form-actions">
+                                    <input type="submit" value="Xóa" class="btn btn-success" />
+                                    <a href="@Url.Action("Index", "TacGia")" class="btn btn-info">Trở Về Trang Trước</a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

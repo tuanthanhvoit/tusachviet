@@ -1,0 +1,134 @@
+﻿@model DA_WebBanSach.Models.LoginModel
+
+@if (Request.IsAuthenticated)
+{
+    <ul class="sloressup_inner_top">
+        <li class="sloressup_res">
+            <div class="sloressup_from_res">
+                <div>
+                    <span style="float: left">Xin Chào, </span>&nbsp @User.Identity.Name
+                
+                </div>
+                <div class="sloressup_from_res_left">
+                    <img src="~/Content/book/products/05.jpg" />
+                </div>
+                <div class="sloressup_from_res_right">
+                    <ul>
+                        <li><a href="@Url.Action("DoiMatKhau","Account")">Đổi Mật Khẩu</a></li>
+                        <li><a href="@Url.Action("ThongTinCaNhan","Account")">Thông Tin Cá Nhân</a></li>
+                        <li><a href="@Url.Action("XemDonHang","Account")">Xem Đơn Đặt Hàng</a></li>
+                        <li><a href="@Url.Action("SachDaMua","Account")">Các Sách Đã Từng Mua</a></li>
+                        <li>@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                            {
+                            @Html.AntiForgeryToken()
+                            <a href="javascript:document.getElementById('logoutForm').submit()">- Đăng Xuất</a>
+                            }</li>
+                    </ul>
+                </div>
+            </div>
+            <li />
+        <li class="sloressup_sup">
+            <div class="loressup_from_sup">
+                <div class="support_yh">
+                    <a href="ymsgr:sendIM?tuanthanh_vo">
+                        <img src="skin_bule/icon/yahoooff.png" alt="Text" />
+                        <div class="support_yh_nc">
+                            KINH DOANH<br />
+                            <font style="font-size: 10px">Võ Tuấn Thành</font>
+                            <br />
+                            01203124144
+                        </div>
+                    </a>
+                </div>
+                <div class="support_yh">
+                    <a href="ymsgr:sendIM?tuanthanh_vo">
+                        <img src="skin_bule/icon/yahoooff.png" alt="Text" />
+                        <div class="support_yh_nc">
+                            KỸ THUẬT<br />
+                            <font style="font-size: 10px">Thành</font>
+                            <br />
+                            01203124144
+                        </div>
+                    </a>
+                </div>
+                <div class="support_hotline">
+                </div>
+            </div>
+        </li>
+    </ul>
+}
+else
+{
+    <ul class="loressup_inner_top">
+        <li class="loressup_res"><a href="@Url.Action("Register","Account")" class="a-Menu"> </a>
+            @Html.Action("RegisterFast","UC")
+        </li>
+        <li class="loressup_log"><a href="@Url.Action("Login","Account")" class="a-Menu"> </a>
+            <div class="loressup_from_log">
+                @using (Html.BeginForm("Login", "Account", new { returnUrl = Request.Url.AbsolutePath }, FormMethod.Post, new { @class = "loressup_from_res_inner" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    <table>
+                        <tr>
+                            <td>Tên đăng nhập
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(m => m.UserName)
+                                @Html.ValidationMessageFor(m => m.UserName)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>mật khẩu truy cập
+                            </td>
+                            <td>
+                                @Html.PasswordFor(m => m.Password)
+                                @Html.ValidationMessageFor(m => m.Password)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>@Html.CheckBoxFor(m => m.RememberMe) Ghi Nhớ
+                            </td>
+                        </tr>
+                    </table>
+            
+            
+                    <div class="loressup_from_res_inner_button">
+                        <input type="submit" value="Đăng Nhập" />
+                        <input type="reset" value="Nhập lại" />
+                    </div>
+                    <div class="loressup_from_log_fgp"><span>Quên Mật Khẩu?</span> <a href="@Url.Action("QuenMatKhau","Account")">Click vào đây</a></div>
+                }
+                <div id="person_information"></div>
+            </div>
+        </li>
+        <li class="loressup_sup">
+            <div class="loressup_from_sup">
+                <div class="support_yh">
+                    <a href="ymsgr:sendIM?tuanthanh_vo">
+                        <img src="skin_bule/icon/yahoooff.png" alt="Text" />
+                        <div class="support_yh_nc">
+                            KINH DOANH<br />
+                            <font style="font-size: 10px">Võ Tuấn Thành</font>
+                            <br />
+                            01203124144
+                        </div>
+                    </a>
+                </div>
+                <div class="support_yh">
+                    <a href="ymsgr:sendIM?tuanthanh_vo">
+                        <img src="skin_bule/icon/yahoooff.png" alt="Text" />
+                        <div class="support_yh_nc">
+                            KỸ THUẬT<br />
+                            <font style="font-size: 10px">Thành</font>
+                            <br />
+                            01203124144
+                        </div>
+                    </a>
+                </div>
+                <div class="support_hotline">
+                </div>
+            </div>
+        </li>
+    </ul>
+}

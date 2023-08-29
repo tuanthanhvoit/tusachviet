@@ -1,0 +1,54 @@
+﻿@model DA_WebBanSach.Models.TacGia
+
+@{
+    ViewBag.Title = "Thêm Tác Giả";
+}
+
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Quản Lý</a><span class="divider">&raquo;</span></li>
+    <li><a href="@Url.Action("Index", "TacGia")">Tác Giả</a><span class="divider">&raquo;</span></li>
+    <li>Thêm Tác Giả</li>
+</ul>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <div class="row">
+        <div class="span12">
+            <div class="nonboxy-widget">
+                <div class="widget-head">
+                    <h5>
+                        <i class="black-icons blocks_images"></i>Thêm Mới Tác Giả: 
+                    </h5>
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div class="form-horizontal well" id="signupform">
+                        <fieldset>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    <b>Tên Tác Giả:</b></label>
+                                <div class="controls">
+                                    @Html.EditorFor(model => model.TenTG)
+                                    @Html.ValidationMessageFor(model => model.TenTG)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    <b>Ghi Chú:</b></label>
+                                <div class="controls">
+                                    @Html.TextAreaFor(model => model.GhiChu)
+                                    @Html.ValidationMessageFor(model => model.GhiChu)
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="form-actions">
+                            <input type="submit" value="Thêm" class="btn btn-success" /> 
+                            <a href="@Url.Action("Index", "TacGia")" class="btn btn-info">Trở Về Trang Trước</a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

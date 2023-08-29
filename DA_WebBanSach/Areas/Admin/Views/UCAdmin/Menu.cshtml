@@ -1,0 +1,41 @@
+﻿<ul class="nav">
+    <li><a href="@Url.Action("Index", "Home")" class="dropdown-toggle" data-toggle="dropdown"><i class="nav-icon home"></i>Home <b class="caret"></b></a></li>
+    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="nav-icon clipboard"></i>Quản Lý<b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li class="nav-header">Quản Lý Nhân Sự</li>
+            <li><a href="@Url.Action("Index", "NhanVien")">Nhân Viên</a></li>
+            <li class=" divider"></li>
+            <li class="nav-header">Quản Lý Sách</li>
+            <li><a href="@Url.Action("Index", "Sach")">Sách</a></li>
+            <li><a href="@Url.Action("Index", "ChungLoaiSach")">Chủng Loại Sách</a></li>
+            <li><a href="@Url.Action("Index", "LoaiSach")">Loại Sách</a></li>
+            <li><a href="@Url.Action("Index", "TacGia")">Tác Giả</a></li>
+            <li><a href="@Url.Action("Index", "NhaXuatBan")">Nhà Xuất Bản</a></li>
+            <li class=" divider"></li>
+            <li class="nav-header">Quản Lý Khách Hàng</li>
+            <li><a href="@Url.Action("Index", "NguoiDung")">Khách Hàng</a></li>
+            <li><a href="@Url.Action("Index", "DonHang")">Đơn Hàng</a></li>
+            <li><a href="@Url.Action("Index", "HoaDon")">Hóa Đơn</a></li>
+            <li class=" divider"></li>
+            <li class="nav-header">Khác</li>
+            <li><a href="@Url.Action("Index", "TinTuc")">Tin Tức</a></li>
+            <li><a href="@Url.Action("Index", "KhuyenMai")">Khuyến Mãi</a></li>
+            <li><a href="@Url.Action("Index", "KhoHang")">Kho Hàng</a></li>
+        </ul>
+    </li>
+    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="nav-icon shuffle"></i>Khác <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li class=" nav-header">Nhân Sự</li>
+            <li><a href="@Url.Action("Create", "NhanVien")">Thêm Nhân Viên</a></li>
+            <li class="divider"></li>
+            <li class=" nav-header">Sách</li>
+            <li><a href="@Url.Action("Create", "Sach")">Thêm Sách</a></li>
+            <li><a href="@Url.Action("Create", "ChungLoaiSach")">Thêm Chủng Loại Sách</a></li>
+            <li><a href="@Url.Action("Create", "LoaiSach")">Thêm Loại Sách</a></li>
+            <li><a href="@Url.Action("Create", "TacGia")">Thêm Tác Giả</a></li>
+            <li><a href="@Url.Action("Create", "NhaXuatBan")">Thêm Nhà Xuất Bản</a></li>
+            <li><a href="@Url.Action("Create", "TinTuc")">Thêm Tin Tức</a></li>
+            <li><a href="@Url.Action("Create", "KhuyenMai")">Thêm Khuyến Mãi</a></li>
+        </ul>
+    </li>
+</ul>

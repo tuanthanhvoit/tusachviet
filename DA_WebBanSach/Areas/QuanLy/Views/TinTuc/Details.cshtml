@@ -1,0 +1,66 @@
+﻿@model DA_WebBanSach.Models.TinTuc
+@{
+    ViewBag.Title = "Chi Tiết Tin";
+}
+<ul class="breadcrumb">
+      <li><a href="@Url.Action("Index", "Home")">Quản Lý</a><span class="divider">&raquo;</span></li>
+      <li><a href="@Url.Action("Index", "TinTuc")">Tin Tức</a><span class="divider">&raquo;</span></li>
+      <li>Chi Tiết Tin Tức</li>
+</ul>
+<div class="row">
+    <div class="span3">
+        <div class="widget-block">
+            <div class="widget-head">
+                <h5>Thông Tin</h5>
+            </div>
+            <div class="widget-content">
+                <div class="widget-box">
+                    <div class="well white-box">
+                        <p>
+                            Ngày Viết :  <b>@Html.DisplayFor(model => model.NgayViet)</b><br />
+                            Nhân Viên: <b>@Html.DisplayFor(model => model.NguoiDung.UserName)</b><br />
+                        </p>
+                        <a href="@Url.Action("Edit", "TinTuc", new { id = Model.TinTucID })" class="btn btn-primary">Sửa Tin</a>
+                            <a href="@Url.Action("Index", "TinTuc")" class="btn btn-info">Trở Về</a> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span9">
+        <div class="widget-block">
+            <div class="widget-head">
+                <h5>Tóm Tắt</h5>
+            </div>
+            <div class="widget-content">
+                <div class="widget-box">
+                    <div class="well white-box">
+                        <p>
+                            @Html.DisplayTextFor(model => model.TomTat)<br /><br />
+                        </p>
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="span12">
+        <div class="widget-block">
+            <div class="widget-head">
+                <h5>Chi Tiết Tin</h5>
+            </div>
+            <div class="widget-content">
+                <div class="widget-box">
+                    <div class="well white-box">
+                        <h3>@Html.DisplayFor(model => model.TieuDe)</h3>
+                        <p>
+                            @Html.DisplayTextFor(model => model.NoiDung)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

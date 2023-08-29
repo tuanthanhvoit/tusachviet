@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Lỗi";
+    Layout = "~/Views/Shared/Error.cshtml";
+}
+
+<div class="container">
+	<div class="row error-wrap">
+		<div class="span3">
+			<div class="errorcode">
+				<span></span>
+			</div>
+		</div>
+		<div class="span5">
+			<div class="error-title">
+				<span>LỖI</span>
+			</div>
+			<div>
+				<h3 class="error-message"><span>Xin Lỗi.</span></h3>
+				<p>
+					Địa chỉ không được tìm thấy hoặc có lỗi phát sinh trong qua trình thực hiện.
+				</p>
+				<ul class="error-instruction">
+					<li>Hãy thử lại</li>
+					<li>Nếu vẫn gặp lỗi như trên hãy liên hệ với hỗ trợ qua mail <a>tuanthanhvo.1989@gmail.com</a> hoặc liên lạc trực tiếp qua số điện thoại 01203124144</li>
+					<li>Trở về <a href="@Url.Action("Index","Home")">Trang Chủ</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+

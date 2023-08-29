@@ -1,0 +1,157 @@
+﻿@model DA_WebBanSach.Models.DonHang
+
+@{
+    ViewBag.Title = "Thông Tin Đơn Hàng";
+}
+
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Quản Lý</a><span class="divider">&raquo;</span></li>
+    <li><a href="@Url.Action("Index", "DonHang")">Đơn Hàng</a><span class="divider">&raquo;</span></li>
+    <li>Thông Tin Đơn Hàng</li>
+</ul>
+<div class="row">
+    <div class="span13">
+        <div class="widget-block">
+            <div class="widget-head">
+                <h5>
+                    Thông Tin Đơn Hàng</h5>
+            </div>
+            <div class="widget-content">
+                <div class="widget-box">
+                    <div class="form-horizontal well white-box">
+                        <fieldset>
+                            <div class="control-group">
+                                <label class="control-label" for="input501">
+                                    <b>Ngày Đặt:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.NgayDatHang)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="input501">
+                                    <b>Ngày Giao:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.NgayGiaoHang)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="input501">
+                                    <b>Hình Thức Thanh Toán:</b></label>
+                                <div class="control-labelb">
+                                    @if (Model.HinhThucThanhToan == 0)
+                                    {
+                                        var tinhtrang = "Thu Tiền Tại Nhà";
+                                            @Html.DisplayFor(modelItem => tinhtrang)
+                                    }
+                                    else
+                                    {
+                                        var tinhtrang = "Ngân Lượng";
+                                            @Html.DisplayFor(modelItem => tinhtrang)
+                                    }
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="input501">
+                                    <b>Địa Điểm Nhận Hàng:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.DiaDiemNhanHang), @Html.DisplayFor(model => model.Quan), @Html.DisplayFor(model => model.ThanhPho)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="input501">
+                                    <b>Khách Hàng:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.NguoiDung.HoTen)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="input501">
+                                    <b>Nhân Viên:</b></label>
+                                <div class="control-labelb">
+                                    @if (Model.TenNhanVien.IsEmpty())
+                                        {
+                                            @:Chưa Kiểm Tra
+                                        }else{
+                                            @Model.TenNhanVien
+                                        }
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="input501">
+                                    <b>Tình Trạng Đơn Hàng:</b></label>
+                                <div class="control-labelb">
+                                    
+                                        @if (Model.TinhTrangDonHang == -1)
+                                        {
+                                            var tinhtrang = "Hủy";
+                                            @Html.DisplayFor(modelItem => tinhtrang)
+                                        }
+                                        else if (Model.TinhTrangDonHang == 0)
+                                        {
+                                            var tinhtrang = "Chưa Thanh Toán";
+                                            @Html.DisplayFor(modelItem => tinhtrang)
+                                        }
+                                        else if (Model.TinhTrangDonHang == 1)
+                                        {
+                                            var tinhtrang = "Chờ Giao Hàng";
+                                            @Html.DisplayFor(modelItem => tinhtrang)
+                                        }
+                                        else
+                                        {
+                                            var tinhtrang = "Đã Giao Hàng";
+                                            @Html.DisplayFor(modelItem => tinhtrang)
+                                        }
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <a href="@Url.Action("Edit", "DonHang", new { id = Model.DonHangID })" class="btn btn-primary">
+                                    Sửa Đơn Hàng</a>
+                                <a href="@Url.Action("Index", "DonHang")" class="btn btn-info">Trở Về Trang
+                                        Đơn Hàng</a>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span6 ">
+        <div class="widget-block">
+          <div class="widget-head">
+            <h5><i class="black-icons money"></i> Chi Tiết Đơn Hàng</h5>
+          </div>
+          <div class="widget-content">
+            <div class="widget-selectbox">
+              <ul>
+                <li class="row-counts">Tổng số lượng : @ViewBag.TongSoLuong</li>
+                <li class="right">Tổng tiền: @Html.DisplayFor(model => model.TongTien)</li>
+              </ul>
+            </div>
+            <div class="widget-box">
+              <table class="table order-tbl">
+                <thead>
+                  <tr>
+                    <th> Tên Sách </th>
+                    <th> Giá Bán </th>
+                    <th> Số Lượng </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach (var item in Model.ChiTietDonHangs)
+                  {
+                      <tr>
+                        <td>
+                            <a href="@Url.Action("Details", "Sach", new { id=item.SachID})" />
+                            @item.Sach.TenSach
+                        </td>
+                        <td>@item.DonGia</td>
+                        <td>@item.SoLuong</td>
+                      </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>

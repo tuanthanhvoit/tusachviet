@@ -1,0 +1,116 @@
+﻿@model DA_WebBanSach.Models.KhuyenMai
+
+@{
+    ViewBag.Title = "Chi Tiết Khuyến Mãi";
+}
+
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Quản Lý</a><span class="divider">&raquo;</span></li>
+    <li><a href="@Url.Action("Index", "KhuyenMai")">Khuyến Mãi</a><span class="divider">&raquo;</span></li>
+    <li>Thông Tin Khuyến Mãi</li>
+</ul>
+<div class="row">
+    <div class="span12">
+        <div class="nonboxy-widget">
+            <div class="widget-head">
+                <h5>
+                    <i class="black-icons blocks_images"></i>Thông Tin Khuyến Mãi
+                </h5>
+
+            </div>
+            <div class="widget-content">
+                <div class="widget-box">
+                    <div class="form-horizontal well" id="signupform">
+                        <fieldset>
+                            <div class="control-group">
+                                <label class="control-label"><b>Tên Đợt Khuyến Mãi:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.TenDotKM)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label"><b>Giá Giảm:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.GiaGiam)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label"><b>Ngày Bắt Đầu:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.NgayBatDau)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label"><b>Ngày Kết Thúc:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.NgayKetThuc)
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="form-actions">
+                            <a href="@Url.Action("Edit", "KhuyenMai", new { id = Model.KhuyenMaiID })" class="btn btn-primary">Sửa Thông Tin</a>
+                            <a href="@Url.Action("Index", "KhuyenMai")" class="btn btn-info">Trở Về Trang Trước</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="span12">
+        <div class="widget-block">
+            <div class="widget-head">
+                <h5>Danh Sách Sách Trong Đợt Khuyến Mãi @Html.DisplayFor(modelItem => modelItem.TenDotKM)</h5>
+            </div>
+            <div class="widget-content">
+                <div class="widget-box">
+                    <table class="data-tbl-tools table">
+                        <thead>
+                            <tr>
+                                <th>Tên Sách
+                                </th>
+                                <th>Ảnh Bìa
+                                </th>
+                                <th>Nhà Xuất Bản
+                                </th>
+                                <th>Ngày Xuất Bản
+                                </th>
+                                <th>Số Lượng Tồn
+                                </th>
+                                <th>Chức năng
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ChiTietKhuyenMais)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.Sach.TenSach
+                                    </td>
+                                    <td>
+                                        @item.Sach.AnhBia
+                                    </td>
+                                    <td>
+                                        @item.Sach.NhaXuatBan.TenNXB
+                                    </td>
+                                    <td>
+                                        @item.Sach.NgayXuatBan
+                                    </td>
+                                    <td>
+                                        @item.Sach.SoLuongTon
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Details", "Sach", new { id = item.SachID })" class="color-icons find_co" title="Xem Chi Tiết"></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

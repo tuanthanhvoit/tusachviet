@@ -1,0 +1,128 @@
+﻿@model DA_WebBanSach.Models.NguoiDung
+@{
+    ViewBag.Title = "Thông Tin Khách Hàng";
+}
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Quản Lý</a><span class="divider">&raquo;</span></li>
+    <li><a href="@Url.Action("Index", "NguoiDung")">Khách Hàng</a><span class="divider">&raquo;</span></li>
+    <li>Thông Tin Khách Hàng</li>
+</ul>
+<div class="row">
+    <div class="span13">
+        <div class="widget-block">
+            <div class="widget-head">
+                <h5>
+                    Thông Tin Khách Hàng</h5>
+            </div>
+            <div class="widget-content">
+                <div class="widget-box">
+                    <div class="form-horizontal well white-box">
+                        <fieldset>
+                            <div class="control-group">
+                                <label class="control-label" for="input501">
+                                    <b>Tên Khách Hàng:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.HoTen)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="input501">
+                                    <b>Giới Tính:</b></label>
+                                <div class="control-labelb">
+                                    @if (Model.GioiTinh == true)
+                                    {
+                                        var gioitinh = "Nam";
+                                        @Html.DisplayFor(model => gioitinh)
+                                    }
+                                    else
+                                    {
+                                        var gioitinh = "Nữ";
+                                        @Html.DisplayFor(model => gioitinh)
+                                    }
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="input501">
+                                    <b>Ngày Sinh:</b></label>
+                                <div class="control-labelb">
+                                    @Model.NgaySinh.ToShortDateString()
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="input501">
+                                    <b>Email:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.Email)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="input501">
+                                    <b>Điện Thoại:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.DienThoai)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="input501">
+                                    <b>Địa Chỉ:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.DiaChi), @Html.DisplayFor(model => model.Quan), @Html.DisplayFor(model => model.ThanhPho)
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <a href="@Url.Action("Edit", "NguoiDung", new { id = Model.UserId })" class="btn btn-primary">
+                                    Sửa Khách Hàng</a> <a href="@Url.Action("Index", "KhachHang")" class="btn btn-info">Trở Về Trang
+                                        Khách Hàng</a>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @if(Model.DonHangs != null){
+    <div class="span6 ">
+        <div class="widget-block">
+          <div class="widget-head">
+            <h5><i class="black-icons money"></i> Đơn Hàng</h5>
+          </div>
+          <div class="widget-content">
+            <div class="widget-box">
+              <table class="table order-tbl">
+                <thead>
+                  <tr>
+                    <th> Mã ĐH </th>
+                    <th> Ngày Đặt </th>
+                    <th class="center"> Tình Trạng </th>
+                    <th class="center"> Tổng Tiền </th>
+                    <th class="center"> Chức Năng </th>
+                  </tr>
+                </thead>
+                <tbody>
+                 @foreach (var item in Model.DonHangs)
+	             {
+                  <tr>
+                    <td>@item.DonHangID</td>
+                    <td>@item.NgayDatHang</td>
+                    <td><span class="label label-important">@if (item.TinhTrangDonHang == 0) { var tinhtrang = "Chưa Thanh Toán";@Html.DisplayFor(model=>tinhtrang) }</span></td>
+                    <td> @item.TongTien </td>
+                    <td><div class="btn-group pull-right">
+                        <button data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-cog"></i><span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                          <li><a href="@Url.Action("Details", "DonHang", new { id=item.DonHangID})"><i class="icon-file"></i> Xem Đơn Hàng</a></li>
+                          <li><a href="@Url.Action("Edit", "DonHang", new { id=item.DonHangID})"><i class="icon-edit"></i> Sửa Đơn Hàng</a></li>
+                          <li class="divider"></li>
+                          <li><a href="#"><i class="icon-minus-sign"></i> Hủy Đơn Hàng</a></li>
+                        </ul>
+                      </div></td>
+                  </tr>
+                 }
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+</div>

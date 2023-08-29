@@ -1,0 +1,10 @@
+﻿@model IEnumerable<DA_WebBanSach.Models.TinTuc>
+
+<ul>
+    @foreach (var item in Model)
+    {   
+        <li>
+            <a href="@Url.Action("ChiTiet", "TinTuc", new { id=item.TinTucID})"><img src="~/Images/TinTuc//@item.UrlHinh" alt="@item.TieuDe" /></a>
+        </li>
+    }
+</ul>

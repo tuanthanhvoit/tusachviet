@@ -1,0 +1,117 @@
+﻿@model DA_WebBanSach.Models.TacGia
+
+@{
+    ViewBag.Title = "Thông Tin Tác Giả";
+}
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Quản Lý</a><span class="divider">&raquo;</span></li>
+    <li><a href="@Url.Action("Index", "TacGia")">Tác Giả</a><span class="divider">&raquo;</span></li>
+    <li>Thông Tin Tác Giả</li>
+</ul>
+<div class="row">
+    <div class="span12">
+        <div class="nonboxy-widget">
+            <div class="widget-head">
+                <h5 class="pull-left">
+                    Tác Giả</h5>
+                <div class="btn-group pull-right">
+                    <button data-toggle="dropdown" class="btn dropdown-toggle">
+                        <i class="icon-cog "></i><span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("Create", "TacGia")"><i class="icon-file"></i>Thêm Tác Giả</a></li>
+                        <li><a href="@Url.Action("Delete", "TacGia", new { id = Model.TacGiaID })"><i class="icon-trash"></i>Xóa Tác Giả</a></li>
+                        <li><a href="@Url.Action("Edit", "TacGia", new { id = Model.TacGiaID })"><i class="icon-wrench"></i>Sửa Tác Giả</a></li>
+                    </ul>
+                </div>
+            </div>
+            <table class="table table-default table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            Tên Tác Giả
+                        </th>
+                        <th>
+                            Ghi Chú
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => model.TenTG)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.GhiChu)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@if (Model.ChiTietTacGias != null)
+{ 
+    <div class="row">
+    <div class="span12">
+        <div class="widget-block">
+            <div class="widget-head">
+                <h5>Sách Của @Html.DisplayTextFor(model => model.TenTG)</h5>
+            </div>
+            <div class="widget-content">
+                <div class="widget-box">
+                    <table class="data-tbl-tools table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Tên Sách
+                                </th>
+                                <th>
+                                    Ảnh Bìa
+                                </th>
+                                <th>
+                                    Nhà Xuất Bản
+                                </th>
+                                <th>
+                                    Ngày Xuất Bản
+                                </th>
+                                <th>
+                                    Số Lượng Tồn
+                                </th>
+                                <th>
+                                    Chức năng
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ChiTietTacGias)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.Sach.TenSach
+                                    </td>
+                                    <td>
+                                        @item.Sach.AnhBia
+                                    </td>
+                                    <td>
+                                        @item.Sach.NhaXuatBan.TenNXB
+                                    </td>
+                                    <td>
+                                        @item.Sach.NgayXuatBan
+                                    </td>
+                                    <td>
+                                        @item.Sach.SoLuongTon
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Details", "Sach", new { id = item.SachID })" class="color-icons find_co" title="Xem Chi Tiết"></a> 
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}

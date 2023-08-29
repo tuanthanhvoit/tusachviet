@@ -1,0 +1,100 @@
+﻿@model DA_WebBanSach.Models.Sach
+
+@{
+    ViewBag.Title = "Thêm Sách";
+}
+
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Quản Lý</a><span class="divider">&raquo;</span></li>
+    <li><a href="@Url.Action("Index", "Sach")">Sách</a><span class="divider">&raquo;</span></li>
+    <li>Thêm Sách</li>
+</ul>
+
+@using (Html.BeginForm("Create", "Sach", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+    <div class="row">
+        <div class="span12">
+            <div class="box-tab">
+                <div class="tabbable">
+                    <!-- Only required for left/right tabs -->
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab1" data-toggle="tab"><i class="black-icons pencil"></i>Thêm Sách</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab1">
+                            <div class="form-horizontal ucase">
+                                <div class="control-group">
+                                    <label class="control-label" for="input01">Tên Sách</label>
+                                    <div class="controls">
+                                        @Html.EditorFor(model => model.TenSach, new { @class = "input-xlarge text-tip" })
+                                        @Html.ValidationMessageFor(model => model.TenSach)
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Đơn Giá</label>
+                                    <div class="controls">
+                                        @Html.EditorFor(model => model.DonGia)
+                                        @Html.ValidationMessageFor(model => model.DonGia)
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Ảnh Bìa</label>
+                                    <div class="controls">
+                                         <input type="file" name="myfile" />
+                                            @ViewData["kichthuoc"]
+                                            @ViewData["loaianh"]
+                                            @ViewData["hinh"]
+									</div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Loại Bìa</label>
+                                    <div class="controls">
+                                        @Html.DropDownList("LoaiBia")
+                                        @Html.ValidationMessageFor(model => model.LoaiBia)
+                                    </div>
+                                </div>
+                                <div class="input-append date" id="datepicker" data-date="01-01-2013" data-date-format="dd-mm-yyyy">
+                                    <div class="control-group">
+                                        <label class="control-label">Ngày Xuất Bản</label>
+                                        <div class="controls">
+                                            <div class="input-append">
+                                                @Html.EditorFor(model => model.NgayXuatBan)
+                                                @Html.ValidationMessageFor(model => model.NgayXuatBan)
+                                                <span class="add-on margin-fix"><i class="icon-th"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Nhà Xuất bản</label>
+                                    <div class="controls">
+                                        @Html.DropDownList("NhaXuatBanID", (IEnumerable<SelectListItem>)ViewBag.NhaXuatBanID, new { @class = "chzn-select" })
+                                        @Html.ValidationMessageFor(model => model.NhaXuatBan.TenNXB)
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Tóm Tắt</label>
+                                    <div class="controls">
+                                        @Html.TextAreaFor(model => model.TomTat, new { @id = "post-editor" })
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Mã Vạch</label>
+                                    <div class="controls">
+                                        @Html.EditorFor(model => model.Mavach)
+                                        @Html.ValidationMessageFor(model => model.Mavach)
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-success">Tạo Mới</button>
+                                    <button class="btn btn-warning" type="reset">Làm Lại</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

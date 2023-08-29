@@ -1,0 +1,93 @@
+﻿@model DA_WebBanSach.Models.DonHang
+@{
+    ViewBag.Title = "Index";
+}
+
+@{
+    var Cart = DA_WebBanSach.Models.GioHang.Cart;
+}
+@ViewBag.ID
+@if (TempData["ErrorTT"]!=null)
+{
+    <h4 style="color:red">@TempData["ErrorTT"]</h4>
+}
+<div class="box_book">
+    <div class="box_book_title">
+        <a>Thanh Toán</a>
+    </div>
+    <div id="psdgraphics-com-table" style="margin-top:70px">
+	    <div id="psdg-header">
+		    <span class="psdg-bold"></span><br />
+	    </div>
+	    <div id="psdg-top">
+		    <div class="psdg-top-cell" style="width:29px; text-align:left; padding-left: 15px;">ID</div>
+		    <div class="psdg-top-cell-title">Tên Sách</div>
+		    <div class="psdg-top-cell">Đơn Giá</div>
+		    <div class="psdg-top-cell">Số Lượng</div>
+		    <div class="psdg-top-cell">Tổng Tiền</div>
+		    <div class="psdg-top-cell-end" style="border:none;"></div>
+	    </div>
+	    <div id="psdg-middle">
+            @foreach (var p in Cart._Items)
+            {
+            <div>
+		        <div class="psdg-left">@p.SachID</div>
+		        <div class="psdg-right-title">@p.TenSach</div>
+		        <div class="psdg-right">@p.Gia.ToString("0,0")</div>
+		        <div class="psdg-right">@p.SoLuong</div>
+		        <div class="psdg-right">@((p.Gia * p.SoLuong).ToString("0,0"))</div>
+		        <div class="psdg-right-end">
+                   
+		        </div>
+            </div>
+            }
+		    <div id="psdg-bottom">
+			    <div class="psdg-bottom-cell" style="width:29px; text-align:left; padding-left: 15px;"></div>
+			    <div class="psdg-bottom-cell-title"></div>
+			    <div class="psdg-bottom-cell"></div>
+			    <div class="psdg-bottom-cell">Tổng Tiền</div>
+			    <div class="psdg-bottom-cell amout">@String.Format("{0:0,0;-0.0;0 VNĐ}",Cart.Amount) </div>
+			    <div class="psdg-bottom-cell-end" style="border:none;"></div>
+		    </div>
+	    </div>
+	    <div id="psdg-footer">
+		    @ViewBag.Error
+	    </div>
+    </div>
+</div>
+
+<div class="form" style="margin-top:360px">
+            @using (Html.BeginForm("ThanhToan", "ThanhToan", FormMethod.Post, new { id = "contactform" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                <p class="contact"><label for="matkhau">Ngày Đặt: </label>@DateTime.Now.ToShortDateString()</p> 
+                
+                
+                @Html.DropDownList("HinhThucThanhToan", (SelectList)ViewBag.HinhThucThanhToan, new { @class="select-style gender", style="margin-bottom:5px"})
+
+                <p class="contact"><label for="diachi">Địa Chỉ</label></p> 
+                @Html.TextBoxFor(model => model.DiaDiemNhanHang, new { placeholder="Địa Chỉ", tabindex="8"})
+                @Html.ValidationMessageFor(m => m.DiaDiemNhanHang)
+                <p class="contact">
+                    <label for="quan">Quận</label>
+                    @Html.TextBoxFor(model => model.Quan, new { placeholder="Quận", tabindex="9", @class="dctp"})
+                    @Html.ValidationMessageFor(m => m.Quan)
+
+                    <label for="thanhpho">Thành Phố</label> @Html.TextBoxFor(model => model.ThanhPho, new { placeholder="Thành Phố", tabindex="10", @class="dctp"})
+                    @Html.ValidationMessageFor(m => m.ThanhPho)
+                </p> 
+                <p class="contact">
+                    <label for="quan">Đổi Thưởng</label>
+                    @Html.CheckBoxFor(model => model.DoiThuong)
+                    @Html.ValidationMessageFor(m => m.DoiThuong)
+                    @if (TempData["ErrorDT"]!=null)
+                    {
+                        @TempData["ErrorDT"].ToString();
+                    }
+                    
+                </p> 
+                <br>
+                <input class="buttom" name="submit" id="submit" tabindex="5" value="Thanh Toán" type="submit">
+            }
+</div>

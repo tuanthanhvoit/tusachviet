@@ -1,0 +1,57 @@
+﻿@model DA_WebBanSach.Models.RegisterModelFull
+@{
+    ViewBag.Title = "Register";
+}
+
+<div class="form">
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { id="contactform"}))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+    			<p class="contact"><label for="username">Tên Đăng Nhập</label></p> 
+                @Html.TextBoxFor(m => m.UserName, new { placeholder="Tên Đăng Nhập", tabindex="1" })        
+   			    @Html.ValidationMessageFor(m => m.UserName);
+        
+    			<p class="contact"><label for="email">Email</label></p> 
+                @Html.TextBoxFor(m => m.Email, new { placeholder="example@domain.com", type="email", tabindex="2" })        
+   			    @Html.ValidationMessageFor(m => m.Email);
+                
+                <p class="contact"><label for="hoten">Họ Và Tên</label></p> 
+                @Html.TextBoxFor(m => m.HoTen, new { placeholder="Họ Và Tên", tabindex="3" })        
+   			    @Html.ValidationMessageFor(m => m.HoTen)
+    			 
+                <p class="contact"><label for="matkhau">Mật Khẩu</label></p> 
+    			@Html.PasswordFor(m => m.Password, new { placeholder="Mật Khẩu", tabindex="4" })        
+   			    @Html.ValidationMessageFor(m => m.Password)
+        
+                <p class="contact"><label for="laplaimatkhau">Nhập Lại Mật Khẩu</label></p> 
+    			@Html.PasswordFor(m => m.ConfirmPassword, new { placeholder="Nhập Lại Mật Khẩu", tabindex="5" })        
+   			    @Html.ValidationMessageFor(m => m.ConfirmPassword)
+        
+                <p class="contact"><label for="gioitinh">Giới Tính</label></p> 
+                @Html.RadioButtonFor(model => model.GioiTinh, true, new { @checked="checked"}) @:Nam 
+                @Html.RadioButtonFor(model =>model.GioiTinh,false) @:Nữ
+                
+                <p class="contact"><label for="ngaysinh">Ngày Sinh</label></p> 
+                @Html.TextBoxFor(model => model.NgaySinh, new { placeholder="dd/mm/yyyy", tabindex="6"})
+                @Html.ValidationMessageFor(m => m.NgaySinh)
+                
+                <p class="contact"><label for="dienthoai">Điện Thoại</label></p> 
+                @Html.TextBoxFor(model => model.DienThoai, new { placeholder="35566865", tabindex="7"})
+                @Html.ValidationMessageFor(m => m.DienThoai)
+        
+                <p class="contact"><label for="diachi">Địa Chỉ</label></p> 
+                @Html.TextBoxFor(model => model.DiaChi, new { placeholder="Địa Chỉ", tabindex="8"})
+                @Html.ValidationMessageFor(m => m.DiaChi)
+                <p class="contact">
+                    <label for="quan">Quận</label>
+                    @Html.TextBoxFor(model => model.Quan, new { placeholder="Quận", tabindex="9", @class="dctp"})
+                    @Html.ValidationMessageFor(m => m.Quan)
+
+                    <label for="thanhpho">Thành Phố</label> @Html.TextBoxFor(model => model.ThanhPho, new { placeholder="Thành Phố", tabindex="10", @class="dctp"})
+                    @Html.ValidationMessageFor(m => m.ThanhPho)
+                </p> 
+            <br>
+            <input class="buttom" name="submit" id="submit" tabindex="5" value="Đăng Ký" type="submit"> 	 
+    }
+</div> 

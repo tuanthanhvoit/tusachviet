@@ -1,0 +1,70 @@
+﻿@model IEnumerable<DA_WebBanSach.Models.DonHang>
+@{
+    ViewBag.Title = "Xem Đơn Hàng";
+}
+
+<div id="psdgraphics-com-table">
+	<div id="psdg-header">
+		<span class="psdg-bold">Quản Lý Giỏ Hàng</span><br />
+	</div>
+	<div id="psdg-top">
+		<div class="psdg-top-cell" style="width:25px; text-align:left; padding-left: 15px;">ID</div>
+		<div class="psdg-top-cell">Ngày Đặt</div>
+		<div class="psdg-top-cell">Ngày Giao</div>
+		<div class="psdg-top-cell">Tổng Tiền</div>
+		<div class="psdg-top-cell">Hình Thức</div>
+		<div class="psdg-top-cell">Địa Chỉ</div>
+		<div class="psdg-top-cell" style="border:none;">Tình Trạng</div>
+	</div>
+	<div id="psdg-middle">
+        @foreach (var item in Model)
+        {
+		<div class="psdg-left-db">@item.DonHangID</div>
+		<div class="psdg-right">@item.NgayDatHang.ToShortDateString()</div>
+		<div class="psdg-right">@item.NgayGiaoHang.ToShortDateString()</div>
+		<div class="psdg-right">@item.TongTien.ToString("0,0")</div>
+		<div class="psdg-right">
+            @if (item.HinhThucThanhToan == 0)
+	        {
+		        @:Thu Tiền Tại Nhà
+	        }else{
+                @:Ngân Lượng
+            }
+		</div>
+		<div class="psdg-right">@item.DiaDiemNhanHang ,@item.Quan, @item.ThanhPho</div>
+		<div class="psdg-right">
+            <div style="vertical-align:middle">
+            @switch (item.TinhTrangDonHang)
+	        {
+                case 0:
+                    <img src="~/Images/icons/cash_single_remove.png" title="Chưa Thanh Toán" />
+                    break;
+                case 1:
+                    <img src="~/Images/icons/vanchuyen.png" title="Đang Giao Hàng" />
+                    break;
+                case 2:
+                    <img src="~/Images/icons/hoanthanh.png" title="Đã Giao Hàng Và Thu Tiền" />
+                    break;
+                default:
+                    <img src="~/Images/icons/huy.png" title="Đơn Hàng Đã Hủy" />
+                    break;
+	        }
+            <a style="float:right; margin-right:15px; margin-top:5px" href="@Url.Action("ChiTietDonHang", "Account", new { id=item.DonHangID})"><img src="~/Images/icons/Search.png" /></a>
+            </div>
+		</div>
+        }
+		<div id="psdg-bottom">
+			<div class="psdg-bottom-cell" style="width:25px; text-align:left; padding-left: 15px;"></div>
+			<div class="psdg-bottom-cell"></div>
+			<div class="psdg-bottom-cell"></div>
+			<div class="psdg-bottom-cell"></div>
+			<div class="psdg-bottom-cell"></div>
+			<div class="psdg-bottom-cell"></div>
+			<div class="psdg-bottom-cell"></div>
+			<div class="psdg-bottom-cell" style="border:none;"></div>
+		</div>
+	</div>
+	<div id="psdg-footer">
+		Để Thanh Toán Lại Đơn Hàng Chưa Thanh Toán Hãy Vào Xem Chi Tiết Đơn Hàng
+	</div>
+</div>

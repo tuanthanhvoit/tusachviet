@@ -1,0 +1,69 @@
+﻿@model DA_WebBanSach.Models.KhoHang
+
+@{
+    ViewBag.Title = "Thêm Số Lượng Sách";
+}
+
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Quản Lý</a><span class="divider">&raquo;</span></li>
+    <li><a href="@Url.Action("Index", "KhoHang")">Kho Hàng</a><span class="divider">&raquo;</span></li>
+    <li>Thêm Kho Hàng</li>
+</ul>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <div class="row">
+        <div class="span12">
+            <div class="nonboxy-widget">
+                <div class="widget-head">
+                    <h5>
+                        <i class="black-icons blocks_images"></i>Thêm Kho Hàng: 
+                    </h5>
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div class="form-horizontal well" id="signupform">
+                        <fieldset>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    <b>Ngày Nhập:</b></label>
+                                <div class="input-append date" id="datepicker" data-date="@DateTime.Now.ToString("dd/MM/yyyy")" data-date-format="dd/mm/yyyy">
+								    <div class="control-group">
+									    <div class="control-labelb">
+										    <div class="input-append">
+											     @Html.TextBoxFor(model => model.NgayNhap)
+                                                 @Html.ValidationMessageFor(model => model.NgayNhap)
+											    <span class="add-on margin-fix"><i class="icon-th"></i></span>
+										    </div>
+									    </div>
+								    </div>
+							    </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    <b>Số Lượng:</b></label>
+                                <div class="controls">
+                                    @Html.EditorFor(model => model.SoLuongNhap)
+                                    @Html.ValidationMessageFor(model => model.SoLuongNhap)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    <b>Tên Sách:</b></label>
+                                <div class="controls">
+                                    @Html.DropDownList("SachID", (IEnumerable<SelectListItem>)ViewBag.SachID, new { @class = "chzn-select" })
+                                        @Html.ValidationMessageFor(model => model.Sach.TenSach)
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="form-actions">
+                            <input type="submit" value="Thêm Mới" class="btn btn-success" /> 
+                            <a href="@Url.Action("Index", "KhoHang")" class="btn btn-info">Trở Về Trang Trước</a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

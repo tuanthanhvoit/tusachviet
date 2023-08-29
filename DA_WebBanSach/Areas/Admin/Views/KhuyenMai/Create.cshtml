@@ -1,0 +1,80 @@
+﻿@model DA_WebBanSach.Models.KhuyenMai
+
+@{
+    ViewBag.Title = "Tạo Mới Khuyến Mãi";
+}
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Quản Lý</a><span class="divider">&raquo;</span></li>
+    <li><a href="@Url.Action("Index", "KhuyenMai")">Khuyến mãi</a><span class="divider">&raquo;</span></li>
+    <li>Thêm Khuyến mãi</li>
+</ul>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <div class="row">
+        <div class="span12">
+            <div class="nonboxy-widget">
+                <div class="widget-head">
+                    <h5>
+                        <i class="black-icons blocks_images"></i>Thêm Mới Khuyến mãi: 
+                    </h5>
+                </div>
+                <div class="widget-content">
+                    <div class="widget-box">
+                        <div class="form-horizontal well" id="signupform">
+                        <fieldset>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    <b>Tên Khuyến mãi:</b></label>
+                                <div class="controls">
+                                    @Html.EditorFor(model => model.TenDotKM)
+                                    @Html.ValidationMessageFor(model => model.TenDotKM)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    <b>Giá Giảm:</b></label>
+                                <div class="controls">
+                                    @Html.EditorFor(model => model.GiaGiam)
+                                    @Html.ValidationMessageFor(model => model.GiaGiam)
+                                </div>
+                            </div>
+                            <div class="input-append date" id="datepicker" data-date="01-01-2013" data-date-format="dd-mm-yyyy">
+								<div class="control-group">
+									<label class="control-label"> <b>Ngày Bắt Đầu:</b> </label>
+									<div class="controls">
+										<div class="input-append">
+											@Html.EditorFor(model => model.NgayBatDau)
+                                            @Html.ValidationMessageFor(model => model.NgayBatDau)
+                                            
+											<span class="add-on margin-fix"><i class="icon-th"></i></span>
+										</div>
+									</div>
+								</div>
+							</div>
+                            <br />
+                            <div class="input-append date" id="datepicker2" data-date="01-01-2013" data-date-format="dd-mm-yyyy">
+								<div class="control-group">
+									<label class="control-label"> <b>Ngày Kết Thúc:</b> </label>
+									<div class="controls">
+										<div class="input-append">
+											@Html.EditorFor(model => model.NgayKetThuc)
+                                            @Html.ValidationMessageFor(model => model.NgayKetThuc)
+											<span class="add-on margin-fix"><i class="icon-th"></i></span>
+										</div>
+									</div>
+								</div>
+							</div>
+                        </fieldset>
+                        <div class="form-actions">
+                            <input type="submit" value="Thêm" class="btn btn-success" /> 
+                            <a href="@Url.Action("Index", "KhuyenMai")" class="btn btn-info">Trở Về Trang Trước</a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

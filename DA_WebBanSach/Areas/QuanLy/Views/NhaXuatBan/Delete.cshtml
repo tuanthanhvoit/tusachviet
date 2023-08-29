@@ -1,0 +1,78 @@
+﻿@model DA_WebBanSach.Models.NhaXuatBan
+@{
+    ViewBag.Title = "Xóa Nhà Xuất Bản";
+}
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Quản Lý</a><span class="divider">&raquo;</span></li>
+    <li><a href="@Url.Action("Index", "NhaXuatBan")">Nhà Xuất Bản</a><span class="divider">&raquo;</span></li>
+    <li>Xóa Nhà Xuất Bản</li>
+</ul>
+<div class="row">
+    <div class="span12">
+        <div class="nonboxy-widget">
+            <div class="widget-head">
+                <h5>
+                    <i class="black-icons blocks_images"></i>Sửa Nhà Xuất Bản:
+                </h5>
+            </div>
+            <div class="widget-content">
+                <div class="widget-box">
+                    <div class="form-horizontal well" id="signupform">
+                        <fieldset>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    <b>Tên Nhà Xuất Bản:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.TenNXB)
+                                    @Html.HiddenFor(model=>model.NhaXuatBanID)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    <b>Địa Chỉ:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.DiaChi)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    <b>Quận:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.Quan)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    <b>Thành Phố:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.ThanhPho)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    <b>Điện Thoại:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.DienThoai)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    <b>Email:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.Email)
+                                </div>
+                            </div>
+                        </fieldset>
+                        @using (Html.BeginForm())
+                        {
+                            <div class="form-actions">
+                                <input type="submit" value="Xóa" class="btn btn-success" />
+                                <a href="@Url.Action("Index", "NhaXuatBan")" class="btn btn-info">Trở Về Trang Trước</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

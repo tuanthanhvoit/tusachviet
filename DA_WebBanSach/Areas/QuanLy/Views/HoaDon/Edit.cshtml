@@ -1,0 +1,144 @@
+﻿@model DA_WebBanSach.Models.HoaDon
+@{
+    ViewBag.Title = "Sửa Thông Tin Hóa Đơn";
+    var cart = DA_WebBanSach.Models.GioHangHD.CartAdmin;
+}
+
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Home")">Quản Lý</a><span class="divider">&raquo;</span></li>
+    <li><a href="@Url.Action("Index", "HoaDon")">Hóa Đơn</a><span class="divider">&raquo;</span></li>
+    <li>Sửa Thông Tin Hóa Đơn</li>
+</ul>
+<h4 style="color:red">
+@ViewBag.Error
+</h4>
+<div class="row">
+    <div class="span13">
+        <div class="widget-block">
+            @using(Html.BeginForm()){
+            <div class="widget-head">
+                <h5>Thông Tin Hóa Đơn</h5>
+            </div>
+            <div class="widget-content">
+                <div class="widget-box">
+                    <div class="form-horizontal well white-box">
+                        <fieldset>
+                            <div class="control-group">
+                                <label class="control-label" for="input501">
+                                    <b>Mã Quản Lý:</b></label>
+                                <div class="control-labelb">
+                                    @Html.Password("MaQuanLy")
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="input501">
+                                    <b>Tổng Tiền:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.TongTien)
+                                    @Html.HiddenFor(model=>model.HoaDonID)
+                                    @Html.HiddenFor(model => model.TongTien)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="input501">
+                                    <b>Ngày Lập Hóa Đơn:</b></label>
+                                <div class="control-labelb">
+                                    @Html.EditorFor(model => model.NgayLapHD)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="input501">
+                                    <b>Tiền Khách Trả:</b></label>
+                                <div class="control-labelb">
+                                    @Html.EditorFor(mdel=>Model.TienKhachTra)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="input501">
+                                    <b>Tiền Thối:</b></label>
+                                <div class="control-labelb">
+                                    @Html.EditorFor(mdel=>Model.TienThoi)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="input501">
+                                    <b>Nhân Viên:</b></label>
+                                <div class="control-labelb">
+                                    @Html.DisplayFor(model => model.NguoiDung.UserName)
+                                    @Html.HiddenFor(model=>model.UserId)
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <input type="submit" class="btn btn-primary" value="Sửa Hóa Đơn"> <a href="@Url.Action("Index", "HoaDon")" class="btn btn-info">Trở Về Trang
+                                        Hóa Đơn</a>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+    @using (Html.BeginForm("EditChiTiet", "HoaDon", FormMethod.Post))
+    {
+        <div class="span6 ">
+            <div class="widget-block">
+                <div class="widget-head">
+                    <h5><i class="black-icons money"></i>Chi Tiết Đơn Hàng</h5>
+                </div>
+                <div class="widget-content">
+                    <div class="widget-selectbox">
+                        <ul>
+                            <li class="row-counts">Tổng số lượng : @Html.DisplayFor(model => cart.Count)</li>
+                            <li class="right">Tổng tiền: @Html.DisplayFor(model => cart.Amount)</li>
+                            <div class="input-prepend"> <span class="add-on"><i class="icon-list-alt"></i></span>
+                                Mã Quản Lý: @Html.Password("MaQuanLy")
+                            </div>
+                            @Html.Hidden("maHD",Model.HoaDonID)
+                        </ul>
+                    </div>
+                    <div class="widget-box">
+                        <table class="table order-tbl">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Mã Chi Tiết</th>
+                                    <th>Tên Sách </th>
+                                    <th>Giá Bán </th>
+                                    <th>Số Lượng </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in cart._Items)
+                                {
+                                    <tr>
+                                        <td><input type="checkbox" name="chk@(item.ChiTietHoaDonID)" /></td>
+                                        <td>@item.ChiTietHoaDonID</td>
+                                        <td>
+                                            <a href="@Url.Action("Details", "Sach", new { id = item.SachID })" />
+                                            @item.Sach.TenSach
+                                        </td>
+                                        <td>@item.DonGia</td>
+                                        <td><input name="qty@(item.ChiTietHoaDonID)" value="@item.SoLuong" /></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="form-actions">
+                                    <input type="submit" name="btnAction" class="btn btn-primary" value="Sửa" />
+                                    <input type="submit" name="btnAction" class="btn btn-primary" value="Xóa" />
+                 </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts{
+    <script>
+        $(function () {
+            $("#NgayLapHD").attr("readonly", "readonly")
+        })
+    </script>    
+}

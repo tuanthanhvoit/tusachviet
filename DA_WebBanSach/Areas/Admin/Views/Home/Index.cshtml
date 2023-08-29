@@ -1,0 +1,94 @@
+﻿@{
+    ViewBag.Title = "Trang Quản Lý";
+}
+
+<ul class="breadcrumb">
+    <li>Quản Lý<span class="divider">&raquo;</span></li>
+</ul>
+
+<div class="dashboard-widget">
+    <div class="row">
+        <div class="span2">
+            <div class="dashboard-wid-wrap">
+                <div class="dashboard-wid-content"><a href="@Url.Action("Index", "Home", new { area = ""}, null)"><i class="dashboard-icons computer_imac_blk"></i><span class="dasboard-icon-title">Trang Chủ</span> </a></div>
+            </div>
+        </div>
+        <div class="span2">
+            <div class="dashboard-wid-wrap">
+                <div class="dashboard-wid-content"><a href="@Url.Action("Index", "NhanVien")"><i class="dashboard-icons users_2_blk"></i><span class="dasboard-icon-title">Nhân Viên</span> </a></div>
+            </div>
+        </div>
+        <div class="span2">
+            <div class="dashboard-wid-wrap">
+                <div class="dashboard-wid-content"><a href="@Url.Action("Index", "NhaXuatBan")"><i class="dashboard-icons apartment_building_blk"></i><span class="dasboard-icon-title">Nhà Xuất Bản</span> </a></div>
+            </div>
+        </div>
+        <div class="span2">
+            <div class="dashboard-wid-wrap">
+                <div class="dashboard-wid-content"><a href="@Url.Action("Index", "ChungLoaiSach")"><i class="dashboard-icons books_blk"></i><span class="dasboard-icon-title">Chủng Loại Sách</span> </a></div>
+            </div>
+        </div>
+        <div class="span2">
+            <div class="dashboard-wid-wrap">
+                <div class="dashboard-wid-content"><a href="@Url.Action("Index", "LoaiSach")"><i class="dashboard-icons note_book_blk"></i><span class="dasboard-icon-title">Loại Sách</span> </a></div>
+            </div>
+        </div>
+        <div class="span2">
+            <div class="dashboard-wid-wrap">
+                <div class="dashboard-wid-content"><a href="@Url.Action("Index", "TacGia")"><i class="dashboard-icons user_blk"></i><span class="dasboard-icon-title">Tác Giả</span> </a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="dashboard-widget">
+    <div class="row">
+        <div class="span2">
+          <div class="dashboard-wid-wrap">
+            <div class="dashboard-wid-content"> <a href="@Url.Action("Index", "NguoiDung")"> <i class="dashboard-icons-colors customers_sl"></i> <span class="dasboard-icon-title">Khách Hàng</span> </a> </div>
+          </div>
+        </div>
+        <div class="span2">
+            <div class="dashboard-wid-wrap">
+                <div class="dashboard-wid-content"><a href="@Url.Action("Index", "Sach")"><i class="dashboard-icons-colors library_sl"></i><span class="dasboard-icon-title">Sách</span> </a></div>
+            </div>
+        </div>
+        <div class="span2">
+            <div class="dashboard-wid-wrap">
+                <div class="dashboard-wid-content"><a href="@Url.Action("Index", "HoaDon")"><i class="dashboard-icons-colors archives_sl"></i><span class="dasboard-icon-title">Hóa Đơn</span> </a></div>
+            </div>
+        </div>
+        <div class="span2">
+            <div class="dashboard-wid-wrap">
+                <div class="dashboard-wid-content"><a href="@Url.Action("Index", "DonHang")"><i class="dashboard-icons-colors invoice_sl"></i><span class="dasboard-icon-title">Đơn Hàng</span> </a></div>
+            </div>
+        </div>
+        <div class="span2">
+            <div class="dashboard-wid-wrap">
+                <div class="dashboard-wid-content"><a href="@Url.Action("Index", "KhuyenMai")"><i class="dashboard-icons-colors star_sl"></i><span class="dasboard-icon-title">Khuyến Mãi</span> </a></div>
+            </div>
+        </div>
+        <div class="span2">
+            <div class="dashboard-wid-wrap">
+                <div class="dashboard-wid-content"><a href="@Url.Action("Index", "KhoHang")"><i class="dashboard-icons-colors database_sl"></i><span class="dasboard-icon-title">Kho Hàng</span> </a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="dashboard-widget">
+    <div class="row">
+        <div class="span2">
+            <div class="dashboard-wid-wrap">
+                <div class="dashboard-wid-content"><a href="@Url.Action("Index", "TinTuc")"><i class="dashboard-icons-colors world_sl"></i><span class="dasboard-icon-title">Tin Tức</span> </a></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span2">
+            <div class="dashboard-wid-wrap">
+                <div class="dashboard-wid-content"><a href="@Url.Action("Index", "ThongKe")"><i class="dashboard-icons-colors statistics_sl"></i><span class="dasboard-icon-title">Thống Kê</span> </a></div>
+            </div>
+        </div>
+    </div>
+</div>

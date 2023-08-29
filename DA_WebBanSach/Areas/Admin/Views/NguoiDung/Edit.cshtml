@@ -1,0 +1,139 @@
+﻿@model DA_WebBanSach.Models.NguoiDung
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<ul class="breadcrumb">
+      <li><a href="@Url.Action("Index","Home")">Dashboard</a><span class="divider">&raquo;</span></li>
+      <li><a href="@Url.Action("Index","NguoiDung")">Khách Hàng</a><span class="divider">&raquo;</span></li>
+      <li>Sửa Khách Hàng</li>
+</ul>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <div class="span12 marg-cl">
+        <div class="nonboxy-widget">
+            <div class="widget-head">
+                <h5> Sửa Khách Hàng </h5>
+            </div>
+            <div class="widget-content">
+                <div class="widget-box">
+                    <div id="horizontal-wizard" class="content-wizard">
+                        <ul class="clearfix">
+                            <li><a href="#step-1"><span class="stepNumber">1</span> <span class="stepDesc">Bước
+                                1 <small>Thông Tin Khách Hàng</small></span></a></li>
+                            <li><a href="#step-2"><span class="stepNumber">2</span> <span class="stepDesc">Bước
+                                2 <small>Email & Mật Khẩu</small></span></a></li>
+                            <li><a href="#step-3"><span class="stepNumber">3</span> <span class="stepDesc">Bước
+                                3 <small>Địa Chỉ</small></span></a></li>
+                        </ul>
+                        <div id="step-1">
+                            <h2 class="StepTitle">
+                                Bước 1 Thông Tin Khách Hàng
+                            </h2>
+                            <br />
+                            <table>
+                                <tr>
+                                    <td align="right">
+                                        Họ Tên: 
+                                    </td>
+                                    <td>
+                                        @Html.HiddenFor(model=>model.UserId)
+                                        @Html.HiddenFor(model=>model.UserName)
+                                        @Html.EditorFor(model => model.HoTen)
+                                        @Html.ValidationMessageFor(model => model.HoTen)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">
+                                        Ngày Sinh: 
+                                    </td>
+                                    <td>
+                                        <div class="input-append date" id="datepicker" data-date="01/01/2013" data-date-format="dd/mm/yyyy">
+								            <div class="control-group"
+									            <div class="controls">
+										            <div class="input-append">
+                                                        @Html.TextBoxFor(model => model.NgaySinh, "{0:dd/MM/yyyy}")
+                                                        @Html.ValidationMessageFor(model => model.NgaySinh)
+											            <span class="add-on margin-fix"><i class="icon-th"></i></span>
+										            </div>
+									            </div>
+								            </div>
+							            </div> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">
+                                        Giới Tính: 
+                                    </td>
+                                    <td>
+                                        @Html.DropDownList("GioiTinh")
+                                        @Html.ValidationMessageFor(model => model.GioiTinh)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">
+                                        Điện Thoại: 
+                                    </td>
+                                    <td>
+                                        @Html.EditorFor(model => model.DienThoai)
+                                        @Html.ValidationMessageFor(model => model.DienThoai)
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="step-2">
+                            <h2 class="StepTitle">
+                                Bước 2 Email</h2>
+                            <table>
+                                <tr>
+                                    <td align="right">Email: </td>
+                                    <td>
+                                        @Html.EditorFor(model => model.Email)
+                                        @Html.ValidationMessageFor(model => model.Email)
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="step-3">
+                            <h2 class="StepTitle">
+                                Bước 3 Địa Chỉ</h2>
+                            <table>
+                                <tr>
+                                    <td align="right">Địa Chỉ: </td>
+                                    <td>
+                                        @Html.EditorFor(model => model.DiaChi)
+                                        @Html.ValidationMessageFor(model => model.DiaChi)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Quận: </td>
+                                    <td>
+                                        @Html.EditorFor(model => model.Quan)
+                                        @Html.ValidationMessageFor(model => model.Quan)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Thành Phố: </td>
+                                    <td>
+                                        @Html.EditorFor(model => model.ThanhPho)
+                                        @Html.ValidationMessageFor(model => model.ThanhPho)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right"></td>
+                                    <td>
+                                        <input type="submit" value="Cập Nhật" class="btn btn-success" /> 
+                                        <a href="@Url.Action("Index", "NguoiDung")" class="btn btn-info">Trở Về Trang Khách Hàng</a> 
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>     
+}
